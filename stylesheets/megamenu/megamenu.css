@@ -151,7 +151,7 @@ limitations under the License.
 .accessible-megamenu .accessible-megamenu-panel.open {
     visibility: visible;
     top: 3em;
-    max-height: 820px;
+    max-height: 1200px;
     opacity: 1;
     z-index: 1001;
     -webkit-transition: opacity 250ms ease, max-height 500ms ease, visibility 0s linear 0s, top 0s linear 0s;
@@ -278,7 +278,7 @@ limitations under the License.
 
 @media print, screen and (max-width: 960px) {
     .accessible-megamenu {
-        min-width: 361px;
+        min-width: 364px;
         margin-left: 6%;
         position: relative;
         width: auto;
@@ -311,6 +311,13 @@ limitations under the License.
         box-shadow: none;
     }
 }
+
+@media all and (-webkit-min-device-pixel-ratio: 0) {
+    .accessible-megamenu {
+        min-width: 361px;
+    }
+}
+
 
 @media print, screen and (max-width: 450px) {
     .accessible-megamenu {

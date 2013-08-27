@@ -36,7 +36,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-:focus {
+body :focus {
     outline-style: auto;
     outline:  2px solid rgba(195, 0, 0, 0.3);
     -moz-outline-radius: 3px;
@@ -310,6 +310,27 @@ a.buttons:hover {
 	text-decoration: none;
 }
 
+header a.forkme img {
+    position: fixed; 
+    top: -1.2em; 
+    right: -0.5em; 
+    border: 0;
+    z-index: 1;
+}
+
+@media print, screen and (max-width: 1067px) {
+    header a.forkme img {
+        top: 1.5em; 
+        z-index: inherit;
+        position: fixed;
+    }
+}
+
+@media print, screen and (max-width: 960px) {
+    header a.forkme img {
+        position: absolute;
+    }
+}
 
 /* Section - for main page content */
 
@@ -373,28 +394,28 @@ footer {
 }
 
 @media print, screen and (max-width: 720px) {
-  body {
-    word-wrap:break-word;
-  }
+    body {
+        word-wrap:break-word;
+    }
 
-  header {
-    padding:10px 20px 0;
-    margin-right: 0;
-    margin-top: 30px;
-  }
-
-	section {
-    padding:10px 0 10px 20px;
-    margin:0 0 30px;
-  }
+    header {
+        padding:10px 20px 0;
+        margin-right: 0;
+        margin-top: 30px;
+    }
+    
+    section {
+        padding:10px 0 10px 20px;
+        margin:0 0 30px;
+    }
 
 	footer {
 		margin: 0 0 0 30px;
 	}
 
-  header ul, header p.view {
-    position:static;
-  }
+    header ul, header p.view {
+        position:static;
+    }
 }
 
 @media print, screen and (max-width: 480px) {
