@@ -161,7 +161,9 @@ limitations under the License.
             mouseTimeoutID,
             keydownTimeoutID,
             keydownTimeoutDuration = 1000,
-            keydownSearchString = "";
+            keydownSearchString = "",
+			isTouch = !!('ontouchstart' in window),
+			justFocused = false;
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_addUniqueId
@@ -195,10 +197,13 @@ limitations under the License.
                 topli = target.closest('.' + settings.topNavItemClass),
                 panel = target.closest('.' + settings.panelClass),
                 newfocus;
-            if (hide) {
+			
+			$('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu, pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+            
+			if (hide) {
                 topli = menu.find('.' + settings.topNavItemClass + ' .' + settings.openClass + ':first').closest('.' + settings.topNavItemClass);
-                if (!(topli.is(event.relatedTarget) || topli.has(event.relatedTarget).length)) {
-                    if (event.type === 'mouseout' && topli.find(document.activeElement).length) {
+                if (!(topli.is(event.relatedTarget) || topli.has(event.relatedTarget).length > 0)) {
+                    if ((event.type === 'mouseout' || event.type === 'focusout') && topli.has(document.activeElement).length > 0) {
                         return;
                     }
                     topli.find('[aria-expanded]')
@@ -210,9 +215,10 @@ limitations under the License.
                         newfocus = topli.find(':tabbable:first');
                         setTimeout(function () {
                             newfocus.focus();
+							justFocused = false;
                         }, 99);
                     }
-                } else if (!topli.length) {
+                } else if (topli.length === 0) {
                     menu.find('[aria-expanded=true]')
                         .attr('aria-expanded', 'false')
                         .removeClass(settings.openClass)
@@ -220,7 +226,8 @@ limitations under the License.
                         .attr('aria-hidden', 'true');
                 }
             } else {
-                topli.siblings()
+                clearTimeout(focusTimeoutID);
+				topli.siblings()
                     .find('[aria-expanded]')
                     .attr('aria-expanded', 'false')
                     .removeClass(settings.openClass)
@@ -231,10 +238,12 @@ limitations under the License.
                     .addClass(settings.openClass)
                     .filter('.' + settings.panelClass)
                     .attr('aria-hidden', 'false');
-                if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.find(document.activeElement).length) {
+                if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.has(document.activeElement).length > 0) {
                     target.focus();
+					justFocused = false;
                 }
-            }
+				$('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+            }			
         }
         
         /**
@@ -249,13 +258,41 @@ limitations under the License.
             var target = $(event.target),
                 topli = target.closest('.' + settings.topNavItemClass),
                 panel = target.closest('.' + settings.panelClass);
-            if (topli.length === 1
-                    && panel.length === 0
-                    && topli.find('.' + settings.panelClass).length === 1
-                    && !target.hasClass(settings.openClass)) {
-                event.preventDefault();
-                _togglePanel(event);
-            }
+			if (topli.length === 1
+				&& panel.length === 0
+				&& topli.find('.' + settings.panelClass).length === 1) {
+				if (!target.hasClass(settings.openClass)) {
+					event.preventDefault();
+					event.stopPropagation();
+					_togglePanel(event);
+				} else {
+					if (justFocused) {
+						event.preventDefault();
+						event.stopPropagation();
+						justFocused = false;
+					} else if (isTouch) {
+						event.preventDefault();
+						event.stopPropagation();
+						_togglePanel(event, target.hasClass(settings.openClass));
+					}
+				}
+			}
+        }
+		
+		/**
+         * @name jQuery.fn.accessibleMegaMenu~_clickOutsideHandler
+         * @desc Handle click event outside of a the megamenu
+         * @param {event} Event object
+         * @memberof jQuery.fn.accessibleMegaMenu
+         * @inner
+         * @private
+         */
+        function _clickOutsideHandler(event) {
+			if (menu.has($(event.target)).length === 0) {
+				event.preventDefault();
+				event.stopPropagation();
+				_togglePanel(event, true);
+			}
         }
         
         /**
@@ -267,12 +304,13 @@ limitations under the License.
          * @private
          */
         function _focusInHandler(event) {
-            clearTimeout(focusTimeoutID);
+			clearTimeout(focusTimeoutID);
             $(event.target)
                 .addClass(settings.focusClass)
-                .on('click', _clickHandler);
+                .on('click.accessible-megamenu', _clickHandler);
+			justFocused = true;
             if (panels.filter('.' + settings.openClass).length) {
-                _togglePanel(event);
+				_togglePanel(event);
             }
         }
         
@@ -285,15 +323,15 @@ limitations under the License.
          * @private
          */
         function _focusOutHandler(event) {
-            var target = $(event.target),
+			justFocused = false;
+			var target = $(event.target),
                 topli = target.closest('.' + settings.topNavItemClass);
             target
                 .removeClass(settings.focusClass)
-                .off('click', _clickHandler);
+                .off('click.accessible-megamenu', _clickHandler);
             focusTimeoutID = setTimeout(function () {
-                _togglePanel(event, true);
+				_togglePanel(event, true);
             }, 300);
-            
                         
             if (window.cvox) {
                 // If ChromeVox is running...
@@ -334,7 +372,7 @@ limitations under the License.
                 regex,
                 isTopNavItem = (topli.length === 1 && panel.length === 0);
             if (target.is('.hover:tabbable')) {
-                $(document).off('keydown.accessible-megamenu');
+                $('html').off('keydown.accessible-megamenu');
             }
             switch (keycode) {
             case Keyboard.ESCAPE:
@@ -412,7 +450,7 @@ limitations under the License.
             case Keyboard.TAB:
                 i = tabbables.index(target);
                 if (event.shiftKey && isTopNavItem && target.hasClass(settings.openClass)) {
-                    _togglePanel(event, true);
+					_togglePanel(event, true);
                     next = topnavitems.filter(':lt(' + topnavitems.index(topli) + '):last');
                     if (next.children('.' + settings.panelClass).length) {
                         found = next.children()
@@ -442,9 +480,9 @@ limitations under the License.
                 }
                 break;
             case Keyboard.SPACE:
-                if (isTopNavItem && !target.hasClass(settings.openClass)) {
-                    event.preventDefault();
-                    _togglePanel(event);
+                if (isTopNavItem) {
+					event.preventDefault();
+                    _clickHandler(event);
                 }
                 break;
             default:
@@ -502,6 +540,7 @@ limitations under the License.
                 }
                 break;
             }
+			justFocused = false;
         }
         
         /**
@@ -518,7 +557,7 @@ limitations under the License.
                 .addClass(settings.hoverClass);
             _togglePanel(event);
             if ($(event.target).is(':tabbable')) {
-                $(document).on('keydown.accessible-megamenu', _keyDownHandler.bind(event.target));
+                $('html').on('keydown.accessible-megamenu', _keyDownHandler.bind(event.target));
             }
         }
         
@@ -537,7 +576,7 @@ limitations under the License.
                 _togglePanel(event, true);
             }, 250);
             if ($(event.target).is(':tabbable')) {
-                $(document).off('keydown.accessible-megamenu');
+                $('html').off('keydown.accessible-megamenu');
             }
         }
         
@@ -602,14 +641,18 @@ limitations under the License.
                 
                 panels = menu.find("." + settings.panelClass);
 
-                menu.on("focusin", ":tabbable, :focusable", _focusInHandler)
-                    .on("focusout", ":tabbable, :focusable", _focusOutHandler)
-                    .on("keydown", _keyDownHandler)
-                    .on("mouseover", _mouseOverHandler)
-                    .on("mouseout", _mouseOutHandler)
-                    .on("mousedown", _mouseDownHandler);
+                menu.on("focusin.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, _focusInHandler)
+                    .on("focusout.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, _focusOutHandler)
+                    .on("keydown.accessible-megamenu", _keyDownHandler)
+                    .on("mouseover.accessible-megamenu", _mouseOverHandler)
+                    .on("mouseout.accessible-megamenu", _mouseOutHandler)
+                    .on("mousedown.accessible-megamenu", _mouseDownHandler);
                 
-                menu.find("hr").attr("role", "separator");
+				if (isTouch) {
+					menu.on("touchstart.accessible-megamenu", _clickHandler);
+				}
+                
+				menu.find("hr").attr("role", "separator");
             },
             
             /**
