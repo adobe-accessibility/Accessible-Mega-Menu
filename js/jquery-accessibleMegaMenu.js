@@ -42,9 +42,10 @@ limitations under the License.
  * @requires jquery
  */
 
-/*jslint browser: true, devel: true, plusplus: true, nomen: true, sloppy: true */
+/*jslint browser: true, devel: true, plusplus: true, nomen: true */
 /*global jQuery */
 (function ($, window, document) {
+    "use strict";
     var pluginName = "accessibleMegaMenu",
         defaults = {
             uuidPrefix: "accessible-megamenu", // unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby
@@ -162,8 +163,20 @@ limitations under the License.
             keydownTimeoutID,
             keydownTimeoutDuration = 1000,
             keydownSearchString = "",
-			isTouch = !!('ontouchstart' in window),
-			justFocused = false;
+			isTouch = !!window.hasOwnProperty("ontouchstart"),
+			justFocused = false,
+            _addUniqueId,
+            _togglePanel,
+            _clickHandler,
+            _clickOutsideHandler,
+            _DOMAttrModifiedHandler,
+            _focusInHandler,
+            _focusOutHandler,
+            _keyDownHandler,
+            _mouseDownHandler,
+            _mouseOverHandler,
+            _mouseOutHandler,
+            _toggleExpandedEventHandlers;
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_addUniqueId
@@ -175,12 +188,12 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _addUniqueId(element) {
+        _addUniqueId = function (element) {
             element = $(element);
             if (!element.attr("id")) {
                 element.attr("id", settings.uuidPrefix + "-" + new Date().getTime() + "-" + (++uuid));
             }
-        }
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_togglePanel
@@ -192,15 +205,18 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _togglePanel(event, hide) {
+        _togglePanel = function (event, hide) {
             var target = $(event.target),
                 topli = target.closest('.' + settings.topNavItemClass),
-                panel = target.closest('.' + settings.panelClass),
+                panel = target.hasClass(settings.panelClass) ? target : target.closest('.' + settings.panelClass),
                 newfocus;
-			
-			$('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu, pointerup.outside-accessible-megamenu', _clickOutsideHandler);
             
-			if (hide) {
+            _toggleExpandedEventHandlers(hide);
+            $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu, pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+            
+            menu.find('.' + settings.panelClass).off('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
+            
+            if (hide) {
                 topli = menu.find('.' + settings.topNavItemClass + ' .' + settings.openClass + ':first').closest('.' + settings.topNavItemClass);
                 if (!(topli.is(event.relatedTarget) || topli.has(event.relatedTarget).length > 0)) {
                     if ((event.type === 'mouseout' || event.type === 'focusout') && topli.has(document.activeElement).length > 0) {
@@ -211,11 +227,11 @@ limitations under the License.
                         .removeClass(settings.openClass)
                         .filter('.' + settings.panelClass)
                         .attr('aria-hidden', 'true');
-                    if (event.type === 'keydown' && event.keyCode === Keyboard.ESCAPE) {
+                    if ((event.type === 'keydown' && event.keyCode === Keyboard.ESCAPE) || event.type === 'DOMAttrModified') {
                         newfocus = topli.find(':tabbable:first');
                         setTimeout(function () {
                             newfocus.focus();
-							justFocused = false;
+                            justFocused = false;
                         }, 99);
                     }
                 } else if (topli.length === 0) {
@@ -227,7 +243,7 @@ limitations under the License.
                 }
             } else {
                 clearTimeout(focusTimeoutID);
-				topli.siblings()
+                topli.siblings()
                     .find('[aria-expanded]')
                     .attr('aria-expanded', 'false')
                     .removeClass(settings.openClass)
@@ -240,11 +256,12 @@ limitations under the License.
                     .attr('aria-hidden', 'false');
                 if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.has(document.activeElement).length > 0) {
                     target.focus();
-					justFocused = false;
+                    justFocused = false;
                 }
-				$('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
-            }			
-        }
+                
+                _toggleExpandedEventHandlers();
+            }
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_clickHandler
@@ -254,32 +271,32 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _clickHandler(event) {
+        _clickHandler = function (event) {
             var target = $(event.target),
                 topli = target.closest('.' + settings.topNavItemClass),
                 panel = target.closest('.' + settings.panelClass);
-			if (topli.length === 1
-				&& panel.length === 0
-				&& topli.find('.' + settings.panelClass).length === 1) {
-				if (!target.hasClass(settings.openClass)) {
-					event.preventDefault();
-					event.stopPropagation();
-					_togglePanel(event);
-				} else {
-					if (justFocused) {
-						event.preventDefault();
-						event.stopPropagation();
-						justFocused = false;
-					} else if (isTouch) {
-						event.preventDefault();
-						event.stopPropagation();
-						_togglePanel(event, target.hasClass(settings.openClass));
-					}
-				}
-			}
-        }
-		
-		/**
+            if (topli.length === 1
+                    && panel.length === 0
+                    && topli.find('.' + settings.panelClass).length === 1) {
+                if (!target.hasClass(settings.openClass)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    _togglePanel(event);
+                } else {
+                    if (justFocused) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        justFocused = false;
+                    } else if (isTouch) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        _togglePanel(event, target.hasClass(settings.openClass));
+                    }
+                }
+            }
+        };
+        
+        /**
          * @name jQuery.fn.accessibleMegaMenu~_clickOutsideHandler
          * @desc Handle click event outside of a the megamenu
          * @param {event} Event object
@@ -287,13 +304,31 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _clickOutsideHandler(event) {
-			if (menu.has($(event.target)).length === 0) {
-				event.preventDefault();
-				event.stopPropagation();
-				_togglePanel(event, true);
-			}
-        }
+        _clickOutsideHandler = function (event) {
+            if (menu.has($(event.target)).length === 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                _togglePanel(event, true);
+            }
+        };
+        
+        /**
+         * @name jQuery.fn.accessibleMegaMenu~_DOMAttrModifiedHandler
+         * @desc Handle DOMAttrModified event on panel to respond to Windows 8 Narrator ExpandCollapse pattern
+         * @param {event} Event object
+         * @memberof jQuery.fn.accessibleMegaMenu
+         * @inner
+         * @private
+         */
+        _DOMAttrModifiedHandler = function (event) {
+            if (event.originalEvent.attrName === 'aria-expanded'
+                    && event.originalEvent.newValue === 'false'
+                    && $(event.target).hasClass(settings.openClass)) {
+                event.preventDefault();
+                event.stopPropagation();
+                _togglePanel(event, true);
+            }
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_focusInHandler
@@ -303,16 +338,16 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _focusInHandler(event) {
-			clearTimeout(focusTimeoutID);
+        _focusInHandler = function (event) {
+            clearTimeout(focusTimeoutID);
             $(event.target)
                 .addClass(settings.focusClass)
                 .on('click.accessible-megamenu', _clickHandler);
-			justFocused = true;
+            justFocused = true;
             if (panels.filter('.' + settings.openClass).length) {
-				_togglePanel(event);
+                _togglePanel(event);
             }
-        }
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_focusOutHandler
@@ -322,15 +357,15 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _focusOutHandler(event) {
-			justFocused = false;
-			var target = $(event.target),
+        _focusOutHandler = function (event) {
+            justFocused = false;
+            var target = $(event.target),
                 topli = target.closest('.' + settings.topNavItemClass);
             target
                 .removeClass(settings.focusClass)
                 .off('click.accessible-megamenu', _clickHandler);
             focusTimeoutID = setTimeout(function () {
-				_togglePanel(event, true);
+                _togglePanel(event, true);
             }, 300);
                         
             if (window.cvox) {
@@ -344,7 +379,7 @@ limitations under the License.
                     }
                 });
             }
-        }
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_keyDownHandler
@@ -354,11 +389,11 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _keyDownHandler(event) {
+        _keyDownHandler = function (event) {
             var target = $($(this).is('.hover:tabbable') ? this : event.target),
                 topli = target.closest('.' + settings.topNavItemClass),
                 tabbables = menu.find(':tabbable'),
-                panel = target.closest('.' + settings.panelClass),
+                panel = target.hasClass(settings.panelClass) ? target : target.closest('.' + settings.panelClass),
                 panelGroups = panel.find('.' + settings.panelGroupClass),
                 currentPanelGroup = target.closest('.' + settings.panelGroupClass),
                 next,
@@ -450,7 +485,7 @@ limitations under the License.
             case Keyboard.TAB:
                 i = tabbables.index(target);
                 if (event.shiftKey && isTopNavItem && target.hasClass(settings.openClass)) {
-					_togglePanel(event, true);
+                    _togglePanel(event, true);
                     next = topnavitems.filter(':lt(' + topnavitems.index(topli) + '):last');
                     if (next.children('.' + settings.panelClass).length) {
                         found = next.children()
@@ -481,7 +516,7 @@ limitations under the License.
                 break;
             case Keyboard.SPACE:
                 if (isTopNavItem) {
-					event.preventDefault();
+                    event.preventDefault();
                     _clickHandler(event);
                 }
                 break;
@@ -540,45 +575,8 @@ limitations under the License.
                 }
                 break;
             }
-			justFocused = false;
-        }
-        
-        /**
-         * @name jQuery.fn.accessibleMegaMenu~_mouseOverHandler
-         * @desc Handle mouseover event on mega menu.
-         * @param {event} Event object
-         * @memberof jQuery.fn.accessibleMegaMenu
-         * @inner
-         * @private
-         */
-        function _mouseOverHandler(event) {
-            clearTimeout(mouseTimeoutID);
-            $(event.target)
-                .addClass(settings.hoverClass);
-            _togglePanel(event);
-            if ($(event.target).is(':tabbable')) {
-                $('html').on('keydown.accessible-megamenu', _keyDownHandler.bind(event.target));
-            }
-        }
-        
-        /**
-         * @name jQuery.fn.accessibleMegaMenu~_mouseOutHandler
-         * @desc Handle mouseout event on mega menu.
-         * @param {event} Event object
-         * @memberof jQuery.fn.accessibleMegaMenu
-         * @inner
-         * @private
-         */
-        function _mouseOutHandler(event) {
-            $(event.target)
-                .removeClass(settings.hoverClass);
-            mouseTimeoutID = setTimeout(function () {
-                _togglePanel(event, true);
-            }, 250);
-            if ($(event.target).is(':tabbable')) {
-                $('html').off('keydown.accessible-megamenu');
-            }
-        }
+            justFocused = false;
+        };
         
         /**
          * @name jQuery.fn.accessibleMegaMenu~_mouseDownHandler
@@ -588,11 +586,62 @@ limitations under the License.
          * @inner
          * @private
          */
-        function _mouseDownHandler(event) {
+        _mouseDownHandler = function (event) {
             mouseTimeoutID = setTimeout(function () {
                 clearTimeout(focusTimeoutID);
             }, 1);
-        }
+        };
+        
+        /**
+         * @name jQuery.fn.accessibleMegaMenu~_mouseOverHandler
+         * @desc Handle mouseover event on mega menu.
+         * @param {event} Event object
+         * @memberof jQuery.fn.accessibleMegaMenu
+         * @inner
+         * @private
+         */
+        _mouseOverHandler = function (event) {
+            clearTimeout(mouseTimeoutID);
+            $(event.target)
+                .addClass(settings.hoverClass);
+            _togglePanel(event);
+            if ($(event.target).is(':tabbable')) {
+                $('html').on('keydown.accessible-megamenu', _keyDownHandler.bind(event.target));
+            }
+        };
+        
+        /**
+         * @name jQuery.fn.accessibleMegaMenu~_mouseOutHandler
+         * @desc Handle mouseout event on mega menu.
+         * @param {event} Event object
+         * @memberof jQuery.fn.accessibleMegaMenu
+         * @inner
+         * @private
+         */
+        _mouseOutHandler = function (event) {
+            $(event.target)
+                .removeClass(settings.hoverClass);
+            mouseTimeoutID = setTimeout(function () {
+                _togglePanel(event, true);
+            }, 250);
+            if ($(event.target).is(':tabbable')) {
+                $('html').off('keydown.accessible-megamenu');
+            }
+        };
+        
+        _toggleExpandedEventHandlers = function (hide) {
+            if (hide) {
+                $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+                
+                menu.find('.' + settings.panelClass).on('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
+            } else {
+                $('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+                
+                /* Narrator in Windows 8 automatically toggles the aria-expanded property on double tap or click. 
+                   To respond to the change to collapse the panel, we must add a listener for a DOMAttrModified event. */
+                menu.find('[aria-expanded=true].' + settings.panelClass).on('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
+            }
+        };
         
         /* public attributes and methods ------------------------- */
         return {
