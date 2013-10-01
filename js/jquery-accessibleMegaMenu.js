@@ -156,9 +156,6 @@ limitations under the License.
 
         /* private attributes and methods ------------------------ */
         var uuid = 0,
-            focusTimeoutID,
-            mouseTimeoutID,
-            keydownTimeoutID,
             keydownTimeoutDuration = 1000,
             keydownSearchString = "",
 			isTouch = !!window.hasOwnProperty("ontouchstart"),
@@ -256,7 +253,7 @@ limitations under the License.
                         .attr('aria-hidden', 'true');
                 }
             } else {
-                clearTimeout(focusTimeoutID);
+                clearTimeout(that.focusTimeoutID);
                 topli.siblings()
                     .find('[aria-expanded]')
                     .attr('aria-expanded', 'false')
@@ -353,7 +350,7 @@ limitations under the License.
          * @private
          */
         _focusInHandler = function (event) {
-            clearTimeout(focusTimeoutID);
+            clearTimeout(this.focusTimeoutID);
             $(event.target)
                 .addClass(this.settings.focusClass)
                 .on('click.accessible-megamenu', _clickHandler.bind(this));
@@ -383,22 +380,22 @@ limitations under the License.
             
             if (window.cvox) {
                 // If ChromeVox is running...
-                window.cvox.Api.getCurrentNode(function (node) {
-                    
-                    if (topli.has(node).length) {
-                        
-                        // and the current node being voiced is in
-                        // the mega menu, clearTimeout, 
-                        // so the panel stays open.
-                        clearTimeout(focusTimeoutID);
-                    } else {
-                        focusTimeoutID = setTimeout(function () {
-                            _togglePanel.call(that, event, true);
-                        }, 300);
-                    }
-                });
+                that.focusTimeoutID = setTimeout(function () {
+                    window.cvox.Api.getCurrentNode(function (node) {
+                        if (topli.has(node).length) {
+                            // and the current node being voiced is in
+                            // the mega menu, clearTimeout, 
+                            // so the panel stays open.
+                            clearTimeout(that.focusTimeoutID);
+                        } else {
+                            that.focusTimeoutID = setTimeout(function (scope, event, hide) {
+                                _togglePanel.call(scope, event, hide);
+                            }, 275, that, event, true);
+                        }
+                    });
+                }, 25);
             } else {
-                focusTimeoutID = setTimeout(function () {
+                that.focusTimeoutID = setTimeout(function () {
                     _togglePanel.call(that, event, true);
                 }, 300);
             }
@@ -549,14 +546,14 @@ limitations under the License.
                 break;
             default:
                 // alphanumeric filter    
-                clearTimeout(keydownTimeoutID);
+                clearTimeout(this.keydownTimeoutID);
                 keydownSearchString += newString !== keydownSearchString ? newString : '';
                 
                 if (keydownSearchString.length === 0) {
                     return;
                 }
                 
-                keydownTimeoutID = setTimeout(function () {
+                this.keydownTimeoutID = setTimeout(function () {
                     keydownSearchString = '';
                 }, keydownTimeoutDuration);
 
@@ -614,8 +611,8 @@ limitations under the License.
          * @private
          */
         _mouseDownHandler = function (event) {
-            mouseTimeoutID = setTimeout(function () {
-                clearTimeout(focusTimeoutID);
+            this.mouseTimeoutID = setTimeout(function () {
+                clearTimeout(this.focusTimeoutID);
             }, 1);
         };
         
@@ -628,7 +625,7 @@ limitations under the License.
          * @private
          */
         _mouseOverHandler = function (event) {
-            clearTimeout(mouseTimeoutID);
+            clearTimeout(this.mouseTimeoutID);
             $(event.target)
                 .addClass(this.settings.hoverClass);
             _togglePanel.call(this, event);
@@ -650,7 +647,7 @@ limitations under the License.
             $(event.target)
                 .removeClass(that.settings.hoverClass);
             
-            mouseTimeoutID = setTimeout(function () {
+            that.mouseTimeoutID = setTimeout(function () {
                 _togglePanel.call(that, event, true);
             }, 250);
             if ($(event.target).is(':tabbable')) {
