@@ -30,7 +30,7 @@ limitations under the License.
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     font-size: 13px;
-    z-index: 1;
+    z-index: 1000;
     width: 900px;
 }
 
