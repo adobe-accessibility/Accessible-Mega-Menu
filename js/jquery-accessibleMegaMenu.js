@@ -224,8 +224,7 @@ limitations under the License.
             
             _toggleExpandedEventHandlers.call(this, hide);
             $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu, pointerup.outside-accessible-megamenu', _clickOutsideHandler);
-            
-            menu.find('.' + settings.panelClass).off('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
+            menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu');
             
             if (hide) {
                 topli = menu.find('.' + settings.topNavItemClass + ' .' + settings.openClass + ':first').closest('.' + settings.topNavItemClass);
@@ -241,6 +240,7 @@ limitations under the License.
                     if ((event.type === 'keydown' && event.keyCode === Keyboard.ESCAPE) || event.type === 'DOMAttrModified') {
                         newfocus = topli.find(':tabbable:first');
                         setTimeout(function () {
+                            menu.find('[aria-expanded].' + that.settings.panelClass).off('DOMAttrModified.accessible-megamenu');
                             newfocus.focus();
                             that.justFocused = false;
                         }, 99);
@@ -660,7 +660,7 @@ limitations under the License.
             if (hide) {
                 $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
                 
-                menu.find('.' + this.settings.panelClass).on('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler.bind(this));
+                menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
             } else {
                 $('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler.bind(this));
                 
