@@ -158,7 +158,7 @@ limitations under the License.
         var uuid = 0,
             keydownTimeoutDuration = 1000,
             keydownSearchString = "",
-			isTouch = !!window.hasOwnProperty("ontouchstart"),
+			isTouch = typeof window.hasOwnProperty === "function" && !!window.hasOwnProperty("ontouchstart"),
             _getPlugin,
             _addUniqueId,
             _togglePanel,
@@ -353,7 +353,7 @@ limitations under the License.
             clearTimeout(this.focusTimeoutID);
             $(event.target)
                 .addClass(this.settings.focusClass)
-                .on('click.accessible-megamenu', _clickHandler.bind(this));
+                .on('click.accessible-megamenu', $.proxy(_clickHandler, this));
             this.justFocused = true;
             if (this.panels.filter('.' + this.settings.openClass).length) {
                 _togglePanel.call(this, event);
@@ -630,7 +630,7 @@ limitations under the License.
                 .addClass(this.settings.hoverClass);
             _togglePanel.call(this, event);
             if ($(event.target).is(':tabbable')) {
-                $('html').on('keydown.accessible-megamenu', _keyDownHandler.bind(event.target));
+                $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
             }
         };
         
@@ -662,11 +662,11 @@ limitations under the License.
                 
                 menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
             } else {
-                $('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler.bind(this));
+                $('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', $.proxy(_clickOutsideHandler, this));
                 
                 /* Narrator in Windows 8 automatically toggles the aria-expanded property on double tap or click. 
                    To respond to the change to collapse the panel, we must add a listener for a DOMAttrModified event. */
-                menu.find('[aria-expanded=true].' + this.settings.panelClass).on('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler.bind(this));
+                menu.find('[aria-expanded=true].' + this.settings.panelClass).on('DOMAttrModified.accessible-megamenu', $.proxy(_DOMAttrModifiedHandler, this));
             }
         };
         
@@ -718,15 +718,15 @@ limitations under the License.
                 
                 this.panels = menu.find("." + settings.panelClass);
 
-                menu.on("focusin.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, _focusInHandler.bind(this))
-                    .on("focusout.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, _focusOutHandler.bind(this))
-                    .on("keydown.accessible-megamenu", _keyDownHandler.bind(this))
-                    .on("mouseover.accessible-megamenu", _mouseOverHandler.bind(this))
-                    .on("mouseout.accessible-megamenu", _mouseOutHandler.bind(this))
-                    .on("mousedown.accessible-megamenu", _mouseDownHandler.bind(this));
+                menu.on("focusin.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, $.proxy(_focusInHandler, this))
+                    .on("focusout.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, $.proxy(_focusOutHandler, this))
+                    .on("keydown.accessible-megamenu", $.proxy(_keyDownHandler, this))
+                    .on("mouseover.accessible-megamenu", $.proxy(_mouseOverHandler, this))
+                    .on("mouseout.accessible-megamenu", $.proxy(_mouseOutHandler, this))
+                    .on("mousedown.accessible-megamenu", $.proxy(_mouseDownHandler, this));
                 
 				if (isTouch) {
-					menu.on("touchstart.accessible-megamenu", _clickHandler.bind(this));
+					menu.on("touchstart.accessible-megamenu",  $.proxy(_clickHandler, this));
 				}
                 
 				menu.find("hr").attr("role", "separator");

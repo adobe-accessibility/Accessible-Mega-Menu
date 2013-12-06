@@ -24,6 +24,7 @@ limitations under the License.
     height: 3.077em;
     color: #454545;
     background-color: #dfe2e2;
+    border-color: #b3b3b3;
     border-color: rgba(0, 0, 0, 0.3);
     border-style: solid;
     border-width: 0 1px 1px;
@@ -53,7 +54,8 @@ limitations under the License.
     color: #454545 !important;
     text-shadow: 0 1px 0 #fff;
     -moz-text-shadow: 0 1px 0 #fff;
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: 1px solid #b3b3b3;
+    border-right-color: rgba(0, 0, 0, 0.3);
 }
 
 .accessible-megamenu :focus {
@@ -105,7 +107,8 @@ limitations under the License.
 
 .accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-haspopup].open {
     border-bottom-left-radius: 0px;
-    border-left: 1px solid rgba(0,0,0,0.3);
+    border-left: 1px solid #b3b3b3;
+    border-left-color: rgba(0,0,0,0.3);
     left: -1px;
     margin-right: -1px;
 }
@@ -139,7 +142,8 @@ limitations under the License.
          -o-transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
             transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
     
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid #b3b3b3;
+    border-color: rgba(0,0,0,0.3);
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
