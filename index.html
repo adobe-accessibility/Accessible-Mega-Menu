@@ -311,7 +311,7 @@
         <span class="nx">focusClass</span><span class="o">:</span> <span class="s2">"focus"</span><span class="p">,</span>
 
         <span class="cm">/* default css class for the open state */</span>
-        <span class="nx">openClass</span><span class="o">:</span> <span class="s2">"open"</span> 
+        <span class="nx">openClass</span><span class="o">:</span> <span class="s2">"open"</span>
     <span class="p">}</span>
 </pre>
         </div>
@@ -429,14 +429,14 @@
         <span class="k">list-style-type</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
         <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
         <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-    <span class="p">}</span>   
+    <span class="p">}</span>
 </pre>
         </div>
         <p>Putting it all together, here is the completed example:</p>
-        
+
         <style>
-            /* Rudimentary mega menu CSS for demonstration */    
-        
+            /* Rudimentary mega menu CSS for demonstration */
+
             /* mega menu list */
             .nav-menu {
                 display: block;
@@ -446,7 +446,7 @@
                 padding: 0;
                 z-index: 15;
             }
-        
+
             /* a top level navigation item in the mega menu */
             .nav-item {
                 list-style: none;
@@ -454,7 +454,7 @@
                 padding: 0;
                 margin: 0;
             }
-        
+
             /* first descendant link within a top level navigation item */
             .nav-item > a {
                 position: relative;
@@ -463,22 +463,22 @@
                 margin: 0 0 -1px 0;
                 border: 1px solid transparent;
             }
-        
-            /* focus/open states of first descendant link within a top level 
+
+            /* focus/open states of first descendant link within a top level
                navigation item */
             .nav-item > a:focus,
             .nav-item > a.open {
                 border: 1px solid #dedede;
             }
-        
-            /* open state of first descendant link within a top level 
+
+            /* open state of first descendant link within a top level
                navigation item */
             .nav-item > a.open {
                 background-color: #fff;
                 border-bottom: none;
                 z-index: 1;
             }
-        
+
             /* sub-navigation panel */
             .sub-nav {
                 position: absolute;
@@ -489,12 +489,12 @@
                 border: 1px solid #dedede;
                 background-color: #fff;
             }
-        
+
             /* sub-navigation panel open state */
             .sub-nav.open {
                 display: block;
             }
-        
+
             /* list of items within sub-navigation panel */
             .sub-nav ul {
                 display: inline-block;
@@ -502,14 +502,14 @@
                 margin: 0 1em 0 0;
                 padding: 0;
             }
-        
+
             /* list item within sub-navigation panel */
             .sub-nav li {
                 display: block;
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
-            }     
+            }
         </style>
         <nav id="example">
             <ul class="nav-menu">
@@ -555,37 +555,37 @@
                 </li>
             </ul>
         </nav>
-        
+
         <!-- initialize a selector as an accessibleMegaMenu -->
         <script>
             $("nav#example").accessibleMegaMenu({
-                /* prefix for generated unique id attributes, which are required 
+                /* prefix for generated unique id attributes, which are required
                    to indicate aria-owns, aria-controls and aria-labelledby */
                 uuidPrefix: "accessible-megamenu",
-        
+
                 /* css class used to define the megamenu styling */
                 menuClass: "nav-menu",
-        
+
                 /* css class for a top-level navigation item in the megamenu */
                 topNavItemClass: "nav-item",
-        
+
                 /* css class for a megamenu panel */
                 panelClass: "sub-nav",
-        
+
                 /* css class for a group of items within a megamenu panel */
                 panelGroupClass: "sub-nav-group",
-        
+
                 /* css class for the hover state */
                 hoverClass: "hover",
-        
+
                 /* css class for the focus state */
                 focusClass: "focus",
-        
+
                 /* css class for the open state */
                 openClass: "open"
             });
         </script>
-        
+
         <div class="highlight">
             <pre>    <span class="cp">&lt;!doctype html&gt;</span>
     <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
@@ -593,7 +593,7 @@
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;title&gt;</span>Simple Accessible Mega Menu Example<span class="nt">&lt;/title&gt;</span>
     <span class="nt">&lt;style&gt;</span>
-        <span class="c">/* Rudimentary mega menu CSS for demonstration */</span>    
+        <span class="c">/* Rudimentary mega menu CSS for demonstration */</span>
 
         <span class="c">/* mega menu list */</span>
         <span class="nc">.nav-menu</span> <span class="p">{</span>
@@ -667,7 +667,7 @@
             <span class="k">list-style-type</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
             <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
             <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-        <span class="p">}</span>     
+        <span class="p">}</span>
     <span class="nt">&lt;/style&gt;</span>
     <span class="nt">&lt;/head&gt;</span>
     <span class="nt">&lt;body&gt;</span>
