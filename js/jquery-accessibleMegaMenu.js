@@ -409,9 +409,9 @@ limitations under the License.
          * @private
          */
         _keyDownHandler = function (event) {
-            var target = $($(this).is('.hover:tabbable') ? this : event.target), // if the element is hovered the target is this, otherwise, its the focused element
-                that = (this.hasOwnProperty('_name') && this._name == pluginName) ? this : _getPlugin(target), // determine the AccessibleMegaMenu plugin instance
+            var that = (this.constructor === AccessibleMegaMenu) ? this : _getPlugin(this), // determine the AccessibleMegaMenu plugin instance
                 settings = that.settings,
+                target = $($(this).is('.' + settings.hoverClass + ':tabbable') ? this : event.target), // if the element is hovered the target is this, otherwise, its the focused element
                 menu = that.menu,
                 topnavitems = that.topnavitems,
                 topli = target.closest('.' + settings.topNavItemClass),
@@ -435,7 +435,7 @@ limitations under the License.
                 return;
             }
 
-            if (target.is('.hover:tabbable')) {
+            if (target.is('.' + settings.hoverClass + ':tabbable')) {
                 $('html').off('keydown.accessible-megamenu');
             }
 
