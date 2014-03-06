@@ -148,6 +148,11 @@ limitations under the License.
         this._defaults = defaults;
         this._name = pluginName;
 
+        this.mouseTimeoutID = null;
+        this.focusTimeoutID = null;
+        this.mouseFocused = false;
+        this.justFocused = false;
+
         this.init();
     }
 
@@ -353,7 +358,8 @@ limitations under the License.
             $(event.target)
                 .addClass(this.settings.focusClass)
                 .on('click.accessible-megamenu', $.proxy(_clickHandler, this));
-            this.justFocused = true;
+            this.justFocused = !this.mouseFocused;
+            this.mouseFocused = false;
             if (this.panels.filter('.' + this.settings.openClass).length) {
                 _togglePanel.call(this, event);
             }
@@ -375,7 +381,7 @@ limitations under the License.
                 keepOpen = false;
             target
                 .removeClass(this.settings.focusClass)
-                .off('click.accessible-megamenu', _clickHandler);
+                .off('click.accessible-megamenu', $.proxy(_clickHandler, this));
 
             if (window.cvox) {
                 // If ChromeVox is running...
@@ -618,6 +624,9 @@ limitations under the License.
          * @private
          */
         _mouseDownHandler = function (event) {
+            if ($(event.target).is(":tabbable, :focusable, ." + this.settings.panelClass)) {
+                this.mouseFocused = true;
+            }
             this.mouseTimeoutID = setTimeout(function () {
                 clearTimeout(this.focusTimeoutID);
             }, 1);
@@ -690,7 +699,6 @@ limitations under the License.
             init: function () {
                 var that = this,
                     settings = this.settings,
-                    justFocused = this.justFocused = false,
                     nav = this.nav = $(this.element),
                     menu = this.menu = nav.children().first(),
                     topnavitems = this.topnavitems = menu.children();
