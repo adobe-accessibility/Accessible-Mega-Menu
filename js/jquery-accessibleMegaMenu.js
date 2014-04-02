@@ -554,7 +554,12 @@ limitations under the License.
                 if (isTopNavItem) {
                     event.preventDefault();
                     _clickHandler.call(that, event);
+                } else {
+                    return true;
                 }
+                break;
+            case Keyboard.ENTER:
+                return true;
                 break;
             default:
                 // alphanumeric filter
@@ -571,7 +576,7 @@ limitations under the License.
                 }, keydownTimeoutDuration);
 
                 if (isTopNavItem && !target.hasClass(settings.openClass)) {
-                    tabbables = tabbables.filter('.' + settings.topNavItemClass + ' > :tabbable');
+                    tabbables = tabbables.filter(':not(.' + settings.panelClass + ' :tabbable)');
                 } else {
                     tabbables = topli.find(':tabbable');
                 }
