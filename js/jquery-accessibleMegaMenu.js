@@ -295,6 +295,7 @@ limitations under the License.
                     event.preventDefault();
                     event.stopPropagation();
                     _togglePanel.call(this, event);
+                    this.justFocused = false;
                 } else {
                     if (this.justFocused) {
                         event.preventDefault();
@@ -749,6 +750,10 @@ limitations under the License.
                 }
 
                 menu.find("hr").attr("role", "separator");
+
+                if ($(document.activeElement).closest(menu).length) {
+                  $(document.activeElement).trigger("focusin.accessible-megamenu");
+                }
             },
 
             /**
