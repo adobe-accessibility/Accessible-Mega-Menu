@@ -226,9 +226,7 @@ limitations under the License.
                 panel = target.hasClass(settings.panelClass) ? target : target.closest('.' + settings.panelClass),
                 newfocus;
 
-            _toggleExpandedEventHandlers.call(this, hide);
-            $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu, pointerup.outside-accessible-megamenu', _clickOutsideHandler);
-            menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu');
+            _toggleExpandedEventHandlers.call(this, true);
 
             if (hide) {
                 topli = menu.find('.' + settings.topNavItemClass + ' .' + settings.openClass + ':first').closest('.' + settings.topNavItemClass);
@@ -320,7 +318,7 @@ limitations under the License.
          * @private
          */
         _clickOutsideHandler = function (event) {
-            if (this.menu.has($(event.target)).length === 0) {
+            if ($(event.target).closest(this.menu).length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
                 _togglePanel.call(this, event, true);
@@ -355,12 +353,14 @@ limitations under the License.
          */
         _focusInHandler = function (event) {
             clearTimeout(this.focusTimeoutID);
-            $(event.target)
+            var target = $(event.target),
+                panel = target.closest('.' + this.settings.panelClass);
+            target
                 .addClass(this.settings.focusClass)
                 .on('click.accessible-megamenu', $.proxy(_clickHandler, this));
             this.justFocused = !this.mouseFocused;
             this.mouseFocused = false;
-            if (this.panels.filter('.' + this.settings.openClass).length) {
+            if (this.panels.not(panel).filter('.' + this.settings.openClass).length) {
                 _togglePanel.call(this, event);
             }
         };
@@ -381,7 +381,7 @@ limitations under the License.
                 keepOpen = false;
             target
                 .removeClass(this.settings.focusClass)
-                .off('click.accessible-megamenu', $.proxy(_clickHandler, this));
+                .off('click.accessible-megamenu');
 
             if (window.cvox) {
                 // If ChromeVox is running...
@@ -629,7 +629,7 @@ limitations under the License.
          * @private
          */
         _mouseDownHandler = function (event) {
-            if ($(event.target).is(":tabbable, :focusable, ." + this.settings.panelClass)) {
+            if ($(event.target).is(":focusable, ." + this.settings.panelClass)) {
                 this.mouseFocused = true;
             }
             this.mouseTimeoutID = setTimeout(function () {
@@ -679,9 +679,9 @@ limitations under the License.
         _toggleExpandedEventHandlers = function (hide) {
             var menu = this.menu;
             if (hide) {
-                $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', _clickOutsideHandler);
+                $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu');
 
-                menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu', _DOMAttrModifiedHandler);
+                menu.find('[aria-expanded].' + this.settings.panelClass).off('DOMAttrModified.accessible-megamenu');
             } else {
                 $('html').on('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu', $.proxy(_clickOutsideHandler, this));
 
@@ -720,7 +720,6 @@ limitations under the License.
                         _addUniqueId.call(that, topnavitempanel);
                         topnavitemlink.attr({
                             "aria-haspopup": true,
-                            "aria-owns": topnavitempanel.attr("id"),
                             "aria-controls": topnavitempanel.attr("id"),
                             "aria-expanded": false
                         });
@@ -738,8 +737,8 @@ limitations under the License.
 
                 this.panels = menu.find("." + settings.panelClass);
 
-                menu.on("focusin.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, $.proxy(_focusInHandler, this))
-                    .on("focusout.accessible-megamenu", ":tabbable, :focusable, ." + settings.panelClass, $.proxy(_focusOutHandler, this))
+                menu.on("focusin.accessible-megamenu", ":focusable, ." + settings.panelClass, $.proxy(_focusInHandler, this))
+                    .on("focusout.accessible-megamenu", ":focusable, ." + settings.panelClass, $.proxy(_focusOutHandler, this))
                     .on("keydown.accessible-megamenu", $.proxy(_keyDownHandler, this))
                     .on("mouseover.accessible-megamenu", $.proxy(_mouseOverHandler, this))
                     .on("mouseout.accessible-megamenu", $.proxy(_mouseOutHandler, this))
