@@ -720,13 +720,13 @@ limitations under the License.
                     if (topnavitempanel.length) {
                         _addUniqueId.call(that, topnavitempanel);
                         topnavitemlink.attr({
-                            "aria-haspopup": true,
+                            // "aria-haspopup": true,
                             "aria-controls": topnavitempanel.attr("id"),
                             "aria-expanded": false
                         });
 
                         topnavitempanel.attr({
-                            "role": "group",
+                            "role": "region",
                             "aria-expanded": false,
                             "aria-hidden": true
                         })
