@@ -997,10 +997,12 @@ limitations under the License.
     $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName, new AccessibleMegaMenu(this, options));
+                $.data(this, "plugin_" + pluginName, new $.fn[pluginName].AccessibleMegaMenu(this, options));
             }
         });
     };
+
+    $.fn[pluginName].AccessibleMegaMenu = AccessibleMegaMenu;
 
     /* :focusable and :tabbable selectors from
        https://raw.github.com/jquery/jquery-ui/master/ui/jquery.ui.core.js */
