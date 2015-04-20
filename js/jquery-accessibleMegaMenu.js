@@ -285,7 +285,7 @@ limitations under the License.
          * @private
          */
         _clickHandler = function (event) {
-            var target = $(event.target),
+            var target = $(event.currentTarget),
                 topli = target.closest('.' + this.settings.topNavItemClass),
                 panel = target.closest('.' + this.settings.panelClass);
             if (topli.length === 1
@@ -630,7 +630,7 @@ limitations under the License.
          * @private
          */
         _mouseDownHandler = function (event) {
-            if ($(event.target).is(":focusable, ." + this.settings.panelClass)) {
+            if ($(event.target).is(this.settings.panelClass) || $(event.target).closest(":focusable").length) {
                 this.mouseFocused = true;
             }
             this.mouseTimeoutID = setTimeout(function () {
