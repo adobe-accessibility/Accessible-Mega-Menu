@@ -36,9 +36,10 @@ limitations under the License.
  *
  *<p>Licensed under the Apache License, Version 2.0 (the “License”)
  *<br />Copyright © 2013 Adobe Systems Incorporated.
- *<br />Project page <a href="https://github.com/adobe-accessibility/Accessible-Mega-Menu">https://github.com/adobe-accessibility/Accessible-Mega-Menu</a>
+ *<br />Project page <a href="https://github.com/mandalatv/Accessible-Mega-Menu">https://github.com/mandalatv/Accessible-Mega-Menu</a>
  * @version 0.1
  * @author Michael Jordan
+ * @author Rich Hauck
  * @requires jquery
  */
 
@@ -48,8 +49,10 @@ limitations under the License.
     'use strict';
     var pluginName = 'accessibleMegaMenu',
         defaults = {
-            mobileBreakpoint: '767',
-            topNavIconClass: '.icon',
+            navToggle: '#nav-toggle', // Button that toggles navigation at mobile
+            navId: '#primary-nav', //id of navigation
+            mobileBreakpoint: '767', // breakpoint that defines when menu goes to mobile
+            topNavIconClass: '.icon', // css class representing icon on mobile
             uuidPrefix: 'accessible-megamenu', // unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby
             menuClass: 'accessible-megamenu', // default css class used to define the megamenu styling
             topNavItemClass: 'accessible-megamenu-top-nav-item', // default css class for a top-level navigation item in the megamenu
@@ -835,18 +838,18 @@ limitations under the License.
                         .find(settings.topNavIconClass)
                         .removeClass('icon--open');
                   }
-                  // remove active class from #primary-nav
-                  $('#primary-nav').removeClass('active');
+                  // remove active class from navId
+                  $(settings.navId).removeClass('active');
                 });
-
-                $('#nav-toggle').click(function(event) {
+                // sets navigation to active and changes label
+                $(settings.navToggle).click(function(event) {
                   event.preventDefault();
-                  $('#primary-nav').toggleClass('active');
+                  $(settings.navId).toggleClass('active');
 
-                  if($('#primary-nav').hasClass('active')){
-                    $('#nav-toggle').html('CLOSE');
+                  if($(settings.navId).hasClass('active')){
+                    $(settings.navToggle).html('CLOSE');
                   }else{
-                    $('#nav-toggle').html('MENU');
+                    $(settings.navToggle).html('MENU');
                   }
                 });
             },
