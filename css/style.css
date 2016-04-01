@@ -1,0 +1,154 @@
+/* Rudimentary mega menu CSS for demonstration */
+/* mega menu list */
+.nav-menu {
+  display: block;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 15;
+}
+
+/* a top level navigation item in the mega menu */
+.nav-item {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+@media (max-width: 767px) {
+  .nav-item {
+    display: block;
+  }
+}
+.nav-item .icon {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  text-align: center;
+  font-weight: bold;
+  font-style: normal;
+  color: #fff;
+  background-color: darkgray;
+}
+.nav-item .icon:before {
+  content: '+';
+}
+.nav-item .icon.icon--open:before {
+  content: '-';
+}
+@media (max-width: 767px) {
+  .nav-item .icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* first descendant link within a top level navigation item */
+.nav-item > a {
+  position: relative;
+  display: inline-block;
+  width: calc(100% - 2em);
+  padding: 0.5em 1em;
+  margin: 0 0 -1px 0;
+  border: 1px solid transparent;
+  background-color: lightgray;
+}
+@media (max-width: 767px) {
+  .nav-item > a {
+    display: inline-block;
+  }
+}
+
+/* focus/open states of first descendant link within a top level
+       navigation item */
+.nav-item > a:focus,
+.nav-item > a.open {
+  border: 1px solid darkgray;
+}
+
+/* open state of first descendant link within a top level navigation item */
+.nav-item > a.open {
+  background-color: #fff;
+  border-bottom: none;
+  z-index: 1;
+}
+
+/* sub-navigation panel */
+.sub-nav {
+  position: absolute;
+  display: none;
+  top: 2.2em;
+  margin-top: -1px;
+  padding: 0;
+  border: 1px solid #dedede;
+  background-color: #fff;
+  transition: all 0.4s;
+  max-height: 500px;
+}
+@media (max-width: 767px) {
+  .sub-nav {
+    display: block;
+    top: 0;
+    position: relative;
+    max-height: 0;
+  }
+}
+
+/* sub-navigation panel open state */
+.sub-nav.open {
+  display: block;
+  max-height: 500px;
+}
+
+/* list of items within sub-navigation panel */
+.sub-nav ul {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 1em 0 0;
+  padding: 1em;
+}
+@media (max-width: 767px) {
+  .sub-nav ul {
+    display: block;
+  }
+}
+
+/* list item within sub-navigation panel */
+.sub-nav li {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav-toggle {
+  background-color: darkgray;
+  display: none;
+  padding: 1em;
+}
+@media (max-width: 767px) {
+  #nav-toggle {
+    display: inline-block;
+  }
+}
+
+#primary-nav {
+  transition: all 0.4s;
+  background-color: lightgray;
+  max-height: 0;
+}
+@media (max-width: 767px) {
+  #primary-nav {
+    max-height: 0;
+    overflow: hidden;
+  }
+}
+#primary-nav.active {
+  max-height: 5000px;
+}

@@ -18,11 +18,11 @@ limitations under the License.
 /*global jQuery */
 if (jQuery) {
     (function ($) {
-        "use strict";
+        'use strict';
         $(document).ready(function () {
             // initialize the megamenu
             $('.megamenu').accessibleMegaMenu();
-            
+
             // hack so that the megamenu doesn't show flash of css animation after the page loads.
             setTimeout(function () {
                 $('body').removeClass('init');
