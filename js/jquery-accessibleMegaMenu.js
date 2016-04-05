@@ -45,8 +45,7 @@ limitations under the License.
 
 /*jslint browser: true, devel: true, plusplus: true, nomen: true */
 /*global jQuery */
-(function ($, window, document) {
-    'use strict';
+(function($, window, document) {
     var pluginName = 'accessibleMegaMenu',
         defaults = {
             navToggle: '#nav-toggle', // Button that toggles navigation at mobile
@@ -161,7 +160,7 @@ limitations under the License.
         this.init();
     }
 
-    AccessibleMegaMenu.prototype = (function () {
+    AccessibleMegaMenu.prototype = (function() {
 
         /* private attributes and methods ------------------------ */
         var uuid = 0,
@@ -191,7 +190,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        getPlugin = function (element) {
+        getPlugin = function(element) {
             return $(element).closest(':data(plugin_' + pluginName + ')').data('plugin_' + pluginName);
         };
 
@@ -205,7 +204,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        addUniqueId = function (element) {
+        addUniqueId = function(element) {
             element = $(element);
             var settings = this.settings;
             if (!element.attr('id')) {
@@ -223,7 +222,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        togglePanel = function (event, hide) {
+        togglePanel = function(event, hide) {
             var target = $(event.target),
                 that = this,
                 settings = this.settings,
@@ -248,7 +247,7 @@ limitations under the License.
                         .attr('aria-hidden', 'true');
                     if ((event.type === 'keydown' && event.keyCode === Keyboard.ESCAPE) || event.type === 'DOMAttrModified') {
                         newfocus = topli.find(':tabbable:first');
-                        setTimeout(function () {
+                        setTimeout(function() {
                             menu.find('[aria-expanded].' + that.settings.panelClass).off('DOMAttrModified.accessible-megamenu');
                             newfocus.focus();
                             that.justFocused = false;
@@ -305,14 +304,14 @@ limitations under the License.
          * @inner
          * @private
          */
-        clickHandler = function (event) {
+        clickHandler = function(event) {
           if(window.innerWidth >= this.settings.mobileBreakpoint){
             var target = $(event.currentTarget),
                 topli = target.closest('.' + this.settings.topNavItemClass),
                 panel = target.closest('.' + this.settings.panelClass);
-            if (topli.length === 1
-                    && panel.length === 0
-                    && topli.find('.' + this.settings.panelClass).length === 1) {
+            if (topli.length === 1 &&
+                    panel.length === 0 &&
+                    topli.find('.' + this.settings.panelClass).length === 1) {
                 if (!target.hasClass(this.settings.openClass)) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -341,7 +340,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        clickOutsideHandler = function (event) {
+        clickOutsideHandler = function(event) {
           if(window.innerWidth >= this.settings.mobileBreakpoint){
             if ($(event.target).closest(this.menu).length === 0) {
                 event.preventDefault();
@@ -359,10 +358,10 @@ limitations under the License.
          * @inner
          * @private
          */
-        DOMAttrModifiedHandler = function (event) {
-            if (event.originalEvent.attrName === 'aria-expanded'
-                    && event.originalEvent.newValue === 'false'
-                    && $(event.target).hasClass(this.settings.openClass)) {
+        DOMAttrModifiedHandler = function(event) {
+            if (event.originalEvent.attrName === 'aria-expanded' &&
+              event.originalEvent.newValue === 'false' &&
+              $(event.target).hasClass(this.settings.openClass)) {
                 event.preventDefault();
                 event.stopPropagation();
                 togglePanel.call(this, event, true);
@@ -377,7 +376,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        focusInHandler = function (event) {
+        focusInHandler = function(event) {
             clearTimeout(this.focusTimeoutID);
             var target = $(event.target),
                 panel = target.closest('.' + this.settings.panelClass);
@@ -410,8 +409,8 @@ limitations under the License.
 
             if (window.cvox) {
                 // If ChromeVox is running...
-                that.focusTimeoutID = setTimeout(function () {
-                    window.cvox.Api.getCurrentNode(function (node) {
+                that.focusTimeoutID = setTimeout(function() {
+                    window.cvox.Api.getCurrentNode(function(node) {
                         if (topli.has(node).length) {
                             // and the current node being voiced is in
                             // the mega menu, clearTimeout,
@@ -419,14 +418,14 @@ limitations under the License.
                             clearTimeout(that.focusTimeoutID);
                         } else {
 
-                            that.focusTimeoutID = setTimeout(function (scope, event2, hide) {
+                            that.focusTimeoutID = setTimeout(function(scope, event2, hide) {
                                 togglePanel.call(scope, event, hide);
                             }, 275, that, event, true);
                         }
                     });
                 }, 25);
             } else {
-                that.focusTimeoutID = setTimeout(function () {
+                that.focusTimeoutID = setTimeout(function() {
                     togglePanel.call(that, event, true);
                 }, 300);
             }
@@ -440,7 +439,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        keyDownHandler = function (event) {
+        keyDownHandler = function(event) {
             var that = (this.constructor === AccessibleMegaMenu) ? this : getPlugin(this), // determine the AccessibleMegaMenu plugin instance
                 settings = that.settings,
                 target = $($(this).is('.' + settings.hoverClass + ':tabbable') ? this : event.target), // if the element is hovered the target is this, otherwise, its the focused element
@@ -597,7 +596,7 @@ limitations under the License.
                     return;
                 }
 
-                this.keydownTimeoutID = setTimeout(function () {
+                this.keydownTimeoutID = setTimeout(function() {
                     keydownSearchString = '';
                 }, keydownTimeoutDuration);
 
@@ -654,11 +653,11 @@ limitations under the License.
          * @inner
          * @private
          */
-        mouseDownHandler = function (event) {
+        mouseDownHandler = function(event) {
             if ($(event.target).is(this.settings.panelClass) || $(event.target).closest(':focusable').length) {
                 this.mouseFocused = true;
             }
-            this.mouseTimeoutID = setTimeout(function () {
+            this.mouseTimeoutID = setTimeout(function() {
                 clearTimeout(this.focusTimeoutID);
             }, 1);
         };
@@ -671,7 +670,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        mouseOverHandler = function (event) {
+        mouseOverHandler = function(event) {
             if(window.innerWidth >= this.settings.mobileBreakpoint){
               clearTimeout(this.mouseTimeoutID);
               $(event.target)
@@ -690,7 +689,7 @@ limitations under the License.
          * @inner
          * @private
          */
-        mouseUpIconHandler = function (event) {
+        mouseUpIconHandler = function(event) {
           clearTimeout(this.mouseTimeoutID);
 
           var icon = $(event.target);
@@ -717,13 +716,13 @@ limitations under the License.
          * @inner
          * @private
          */
-        mouseOutHandler = function (event) {
+        mouseOutHandler = function(event) {
           if(window.innerWidth >= this.settings.mobileBreakpoint){
             var that = this;
             $(event.target)
                 .removeClass(that.settings.hoverClass);
 
-            that.mouseTimeoutID = setTimeout(function () {
+            that.mouseTimeoutID = setTimeout(function() {
                 togglePanel.call(that, event, true);
             }, 250);
             if ($(event.target).is(':tabbable')) {
@@ -732,7 +731,7 @@ limitations under the License.
           }
         };
 
-        toggleExpandedEventHandlers = function (hide) {
+        toggleExpandedEventHandlers = function(hide) {
             var menu = this.menu;
             if (hide) {
                 $('html').off('mouseup.outside-accessible-megamenu, touchend.outside-accessible-megamenu, mspointerup.outside-accessible-megamenu,  pointerup.outside-accessible-megamenu');
@@ -757,7 +756,7 @@ limitations under the License.
              * @memberof jQuery.fn.accessibleMegaMenu
              * @instance
              */
-            init: function () {
+            init: function() {
                 var settings = this.settings,
                     nav = $(this.element),
                     menu = nav.children().first(),
@@ -773,7 +772,7 @@ limitations under the License.
 
                 nav.attr('role', 'navigation');
                 menu.addClass(settings.menuClass);
-                topnavitems.each(function (i, topnavitem) {
+                topnavitems.each(function(i, topnavitem) {
                     var topnavitemlink, topnavitempanel;
                     topnavitem = $(topnavitem);
                     topnavitem.addClass(settings.topNavItemClass);
@@ -861,7 +860,7 @@ limitations under the License.
              * @memberof jQuery.fn.accessibleMegaMenu
              * @instance
              */
-            getDefaults: function () {
+            getDefaults: function() {
                 return this.defaults;
             },
 
@@ -873,7 +872,7 @@ limitations under the License.
              * @memberof jQuery.fn.accessibleMegaMenu
              * @instance
              */
-            getOption: function (opt) {
+            getOption: function(opt) {
                 return this.settings[opt];
             },
 
@@ -884,7 +883,7 @@ limitations under the License.
              * @memberof jQuery.fn.accessibleMegaMenu
              * @instance
              */
-            getAllOptions: function () {
+            getAllOptions: function() {
                 return this.settings;
             },
 
@@ -897,7 +896,7 @@ limitations under the License.
              * @memberof jQuery.fn.accessibleMegaMenu
              * @instance
              */
-            setOption: function (opt, value, reinitialize) {
+            setOption: function(opt, value, reinitialize) {
                 this.settings[opt] = value;
                 if (reinitialize) {
                     this.init();
@@ -913,11 +912,20 @@ limitations under the License.
      * @class accessibleMegaMenu
      * @memberOf jQuery.fn
      * @classdesc Implements an accessible mega menu as a jQuery plugin.
-     * <p>The mega-menu It is modeled after the mega menu on {@link http://adobe.com|adobe.com} but has been simplified for use by others. A brief description of the interaction design choices can be found in a blog post at {@link http://blogs.adobe.com/accessibility/2013/05/adobe-com.html|Mega menu accessibility on adobe.com}.</p>
+     * <p>The mega-menu It is modeled after the mega menu on {@link http://adobe.com|adobe.com} but has been simplified for use by others. A brief description of the interaction design choices can be
+     * found in a blog post at {@link http://blogs.adobe.com/accessibility/2013/05/adobe-com.html|Mega menu accessibility on adobe.com}.</p>
      * <h3>Keyboard Accessibility</h3>
-     * <p>The accessible mega menu supports keyboard interaction modeled after the behavior described in the {@link http://www.w3.org/TR/wai-aria-practices/#menu|WAI-ARIA Menu or Menu bar (widget) design pattern}, however we also try to respect users' general expectations for the behavior of links in a global navigation. To this end, the accessible mega menu implementation permits tab focus on each of the six top-level menu items. When one of the menu items has focus, pressing the Enter key, Spacebar or Down arrow will open the submenu panel, and pressing the Left or Right arrow key will shift focus to the adjacent menu item. Links within the submenu panels are included in the tab order when the panel is open. They can also be navigated with the arrow keys or by typing the first character in the link name, which speeds up keyboard navigation considerably. Pressing the Escape key closes the submenu and restores focus to the parent menu item.</p>
+     * <p>The accessible mega menu supports keyboard interaction modeled after the behavior described in the {@link http://www.w3.org/TR/wai-aria-practices/#menu|WAI-ARIA Menu or Menu bar (widget) design
+     *  pattern}, however we also try to respect users' general expectations for the behavior of links in a global navigation. To this end, the accessible mega menu implementation permits tab focus on each of the six top-level menu items. When one of the menu items has focus,
+     *  pressing the Enter key, Spacebar or Down arrow will open the submenu panel, and pressing the Left or Right arrow key will shift focus to the adjacent menu item. Links within the submenu panels are included in the tab order when the panel is open.
+     *  They can also be navigated with the arrow keys or by typing the first character in the link name,
+     *  which speeds up keyboard navigation considerably. Pressing the Escape key closes the submenu and restores focus to the parent menu item.</p>
      * <h3>Screen Reader Accessibility</h3>
-     * <p>The accessible mega menu models its use of WAI-ARIA Roles, States, and Properties after those described in the {@link http://www.w3.org/TR/wai-aria-practices/#menu|WAI-ARIA Menu or Menu bar (widget) design pattern} with some notable exceptions, so that it behaves better with screen reader user expectations for global navigation. We don't use <code class="prettyprint prettyprinted" style=""><span class="pln">role</span><span class="pun">=</span><span class="str">"menu"</span></code> for the menu container and <code class="prettyprint prettyprinted" style=""><span class="pln">role</span><span class="pun">=</span><span class="str">"menuitem"</span></code> for each of the links therein, because if we do, assistive technology will no longer interpret the links as links, but instead, as menu items, and the links in our global navigation will no longer show up when a screen reader user executes a shortcut command to bring up a list of links in the page.</p>
+     * <p>The accessible mega menu models its use of WAI-ARIA Roles, States, and Properties after those described in the {@link http://www.w3.org/TR/wai-aria-practices/#menu|WAI-ARIA Menu or Menu bar (widget) design pattern}
+     * with some notable exceptions, so that it behaves better with screen reader user expectations for global navigation. We don't use <code class="prettyprint prettyprinted" style=""><span class="pln">role</span><span class="pun">=</span><span class="str">"menu"</span></code> for the
+     * menu container and <code class="prettyprint prettyprinted" style=""><span class="pln">role</span><span class="pun">=</span><span class="str">"menuitem"</span></code> for each of the links therein, because if we do,
+     * assistive technology will no longer interpret the links as links, but instead, as menu items, and the links in our global navigation
+     * will no longer show up when a screen reader user executes a shortcut command to bring up a list of links in the page.</p>
      * @example <h4>HTML</h4><hr/>
 &lt;nav&gt;
     &lt;ul class=&quot;nav-menu&quot;&gt;
@@ -1084,8 +1092,8 @@ limitations under the License.
      * @param {string} [options.focusClass=focus] - CSS class for the focus state
      * @param {string} [options.openClass=open] - CSS class for the open state
      */
-    $.fn[pluginName] = function (options) {
-        return this.each(function () {
+    $.fn[pluginName] = function(options) {
+        return this.each(function() {
             if (!$.data(this, 'plugin_' + pluginName)) {
                 $.data(this, 'plugin_' + pluginName, new $.fn[pluginName].AccessibleMegaMenu(this, options));
             }
@@ -1101,7 +1109,7 @@ limitations under the License.
      * @private
      */
     function visible(element) {
-        return $.expr.filters.visible(element) && !$(element).parents().addBack().filter(function () {
+        return $.expr.filters.visible(element) && !$(element).parents().addBack().filter(function() {
             return $.css(this, 'visibility') === 'hidden';
         }).length;
     }
@@ -1129,20 +1137,20 @@ limitations under the License.
     }
 
     $.extend($.expr[':'], {
-        data: $.expr.createPseudo ? $.expr.createPseudo(function (dataName) {
-            return function (elem) {
+        data: $.expr.createPseudo ? $.expr.createPseudo(function(dataName) {
+            return function(elem) {
                 return !!$.data(elem, dataName);
             };
         }) : // support: jQuery <1.8
-                function (elem, i, match) {
+                function(elem, i, match) {
                     return !!$.data(elem, match[3]);
                 },
 
-        focusable: function (element) {
+        focusable: function(element) {
             return focusable(element, !isNaN($.attr(element, 'tabindex')));
         },
 
-        tabbable: function (element) {
+        tabbable: function(element) {
             var tabIndex = $.attr(element, 'tabindex'),
                 isTabIndexNaN = isNaN(tabIndex);
             return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
