@@ -1,9 +1,25 @@
-# Accessible Mega Menu
+# Responsive Accessible Mega Menu
 =========================
 
-A demonstration of how to implement a keyboard and screen reader accessible mega menu as a jQuery plugin. It is modeled after the mega menu on [adobe.com](http://adobe.com/) but has been simplified for use by others. An brief explanation of our interaction design choices can be found in a blog post at [Mega menu accessibility on adobe.com](http://blogs.adobe.com/accessibility/2013/05/adobe-com.html).
+A demonstration of how to implement a keyboard and screen reader accessible mega menu as a jQuery plugin. It is modeled after the mega menu on [adobe.com](http://adobe.com/) but has been simplified for use by others. A brief explanation of our interaction design choices can be found in a blog post at [Mega menu accessibility on adobe.com](http://blogs.adobe.com/accessibility/2013/05/adobe-com.html).
 
 Content for the links and text within the mega menu comes from the [Web Content Accessibility Guidelines (WCAG) 2.0](http://www.w3.org/TR/WCAG/).
+
+Please see the responsive modifications below for an explanation of how this forked code deviates from Adobe's version.
+
+## Responsive Modifications
+
+This version has been modified to convert the navigation to an accordion menu at mobile. Additional arguments have been added to the constructor, including:
+
+* navToggle - The id selector of the element triggering the mobile menu toggle
+* navId - the id selector of the navigation
+* mobileBreakpoint - The breakpoint at which the navigation toggles to mobile.
+
+The mobileBreakpoint argument has been added as a conditional in several of the  handler functions to determine whether the code should execute. It is also tested on a window.bind() call to remove any open menu states/class selectors should the user resize their browser from a mobile width to a desktop width.
+
+Lastly, the Javascript file has been revised to ensure it passes ES6 Linting.
+
+Please see the [demo.html](demo.html) for the complete example.
 
 ## Keyboard Accessibility
 
@@ -23,83 +39,120 @@ The HTML structure for the mega menu is a `nav` element, or any other container 
 The panel can contain any html content; in the following example, each panel contains three lists of links. You can explicitly define groups within the panel, between which a user can navigate quickly using the left and right arrow keys; in the following example, the CSS class `.sub-nav-group` identifies a navigable group.
 
 ```html
-    <nav>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="?movie">Movies</a>
-                <div class="sub-nav">
-                    <ul class="sub-nav-group">
-                        <li><a href="?movie&genre=0">Action &amp; Adventure</a></li>
-                        <li><a href="?movie&genre=2">Children &amp; Family</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                    <ul class="sub-nav-group">
-                        <li><a href="?movie&genre=7">Dramas</a></li>
-                        <li><a href="?movie&genre=9">Foreign</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                    <ul class="sub-nav-group">
-                        <li><a href="?movie&genre=14">Musicals</a></li>
-                        <li><a href="?movie&genre=15">Romance</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="?tv">TV Shows</a>
-                <div class="sub-nav">
-                    <ul class="sub-nav-group">
-                        <li><a href="?tv&genre=20">Classic TV</a></li>
-                        <li><a href="?tv&genre=21">Crime TV</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                    <ul class="sub-nav-group">
-                        <li><a href="?tv&genre=27">Reality TV</a></li>
-                        <li><a href="?tv&genre=30">TV Action</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                    <ul class="sub-nav-group">
-                        <li><a href="?tv&genre=33">TV Dramas</a></li>
-                        <li><a href="?tv&genre=34">TV Horror</a></li>
-                        <li>&#8230;</li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </nav>
+<a id="nav-toggle" href="#primary-nav">MENU</a>
+<nav id="primary-nav">
+    <ul class="nav-menu">
+        <li class="nav-item"><a href="?tv">Home</a></li>
+        <li class="nav-item">
+            <a href="?movie">Movies</a>
+            <i class="icon"></i>
+            <div class="sub-nav">
+                <ul class="sub-nav-group">
+                    <li><a href="?movie&genre=0">Action &amp; Adventure</a></li>
+                    <li><a href="?movie&genre=2">Children &amp; Family</a></li>
+                    <li>&#8230;</li>
+                </ul>
+                <ul class="sub-nav-group">
+                    <li><a href="?movie&genre=7">Dramas</a></li>
+                    <li><a href="?movie&genre=9">Foreign</a></li>
+                    <li>&#8230;</li>
+                </ul>
+                <ul class="sub-nav-group">
+                    <li><a href="?movie&genre=14">Musicals</a></li>
+                    <li><a href="?movie&genre=15">Romance</a></li>
+                    <li>&#8230;</li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="?tv">TV Shows</a>
+            <i class="icon"></i>
+            <div class="sub-nav">
+                <ul class="sub-nav-group">
+                    <li><a href="?tv&genre=20">Classic TV</a></li>
+                    <li><a href="?tv&genre=21">Crime TV</a></li>
+                    <li>&#8230;</li>
+                </ul>
+                <ul class="sub-nav-group">
+                    <li><a href="?tv&genre=27">Reality TV</a></li>
+                    <li><a href="?tv&genre=30">TV Action</a></li>
+                    <li>&#8230;</li>
+                </ul>
+                <ul class="sub-nav-group">
+                    <li><a href="?tv&genre=33">TV Dramas</a></li>
+                    <li><a href="?tv&genre=34">TV Horror</a></li>
+                    <li>&#8230;</li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item"><a href="?music">Music</a></li>
+        <li class="nav-item"><a href="?video-games">Video Games</a>
+          <i class="icon"></i>
+          <div class="sub-nav">
+              <ul class="sub-nav-group">
+                  <li><a href="?video-games&genre=20">Role Playing</a></li>
+                  <li><a href="?video-games&genre=21">Strategy</a></li>
+                  <li>&#8230;</li>
+              </ul>
+              <ul class="sub-nav-group">
+                  <li><a href="?video-games&genre=27">FPS</a></li>
+                  <li><a href="?video-games&genre=30">Sports</a></li>
+                  <li>&#8230;</li>
+              </ul>
+              <ul class="sub-nav-group">
+                  <li><a href="?video-games&genre=33">Puzzle</a></li>
+                  <li><a href="?video-games&genre=34">Multiplayer</a></li>
+                  <li>&#8230;</li>
+              </ul>
+          </div>
+        </li>
+    </ul>
+</nav>
 ```
 
 By default, accessibleMegaMenu uses the the following CSS classes to define the top-level navigation items, panels, groups within the panels, and the hover, focus, and open states. It also defines a prefix for unique id strings, which are required to indicate the relationship of a top-level navigation item to the panel it controls.
 
 ```js
     defaults = {
-        /* unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby */
-        uuidPrefix: "accessible-megamenu",
-        
-        /* default css class used to define the megamenu styling */
-        menuClass: "accessible-megamenu",
-        
-        /* default css class for a top-level navigation item in the megamenu */
-        topNavItemClass: "accessible-megamenu-top-nav-item",
-        
-        /* default css class for a megamenu panel */
-        panelClass: "accessible-megamenu-panel",
-        
-        /* default css class for a group of items within a megamenu panel */
-        panelGroupClass: "accessible-megamenu-panel-group",
-        
-        /* default css class for the hover state */
-        hoverClass: "hover",
-        
-        /* default css class for the focus state */
-        focusClass: "focus",
-        
-        /* default css class for the open state */
-        openClass: "open" 
+      /* Button that toggles navigation at mobile */
+      navToggle: '#nav-toggle',
+
+      /* Id of navigation */
+      navId: '#primary-nav',
+
+      /* mobile breakpoint in pixels that determines when the menu goes to mobile */
+      mobileBreakpoint: '900',
+      /* prefix for generated unique id attributes, which are required
+         to indicate aria-owns, aria-controls and aria-labelledby */
+      uuidPrefix: 'accessible-megamenu',
+
+      /* css class used to define the megamenu styling */
+      menuClass: 'nav-menu',
+
+      /* css class for a top-level navigation item in the megamenu */
+      topNavItemClass: 'nav-item',
+
+      /* css class for a top-level icon in the megamenu (displayed at mobile) */
+      topNavIconClass: '.icon',
+
+      /* css class for a megamenu panel */
+      panelClass: 'sub-nav',
+
+      /* css class for a group of items within a megamenu panel */
+      panelGroupClass: 'sub-nav-group',
+
+      /* css class for the hover state */
+      hoverClass: 'hover',
+
+      /* css class for the focus state */
+      focusClass: 'focus',
+
+      /* css class for the open state */
+      openClass: 'open'
     }
 ```
 
-You can optionally override the defaults to use the CSS classes you may have already defined for your mega menu. 
+You can optionally override the defaults to use the CSS classes you may have already defined for your mega menu.
 
 ### JavaScript
 
@@ -114,28 +167,28 @@ The following initializes the first nav element in the document as an accessible
 
 ```js
     $("nav:first").accessibleMegaMenu({
-        /* prefix for generated unique id attributes, which are required 
+        /* prefix for generated unique id attributes, which are required
            to indicate aria-owns, aria-controls and aria-labelledby */
         uuidPrefix: "accessible-megamenu",
-        
+
         /* css class used to define the megamenu styling */
         menuClass: "nav-menu",
-        
+
         /* css class for a top-level navigation item in the megamenu */
         topNavItemClass: "nav-item",
-        
+
         /* css class for a megamenu panel */
         panelClass: "sub-nav",
-        
+
         /* css class for a group of items within a megamenu panel */
         panelGroupClass: "sub-nav-group",
-        
+
         /* css class for the hover state */
         hoverClass: "hover",
-        
+
         /* css class for the focus state */
         focusClass: "focus",
-        
+
         /* css class for the open state */
         openClass: "open"
     });
@@ -174,14 +227,14 @@ Following is some rudimentary CSS for our example which enables the showing/hidi
         border: 1px solid transparent;
     }
 
-    /* focus/open states of first descendant link within a top level 
+    /* focus/open states of first descendant link within a top level
        navigation item */
     .nav-item > a:focus,
     .nav-item > a.open {
         border: 1px solid #dedede;
     }
 
-    /* open state of first descendant link within a top level 
+    /* open state of first descendant link within a top level
        navigation item */
     .nav-item > a.open {
         background-color: #fff;
@@ -225,94 +278,27 @@ Following is some rudimentary CSS for our example which enables the showing/hidi
 Putting it all together, here is the completed example:
 
 ```html
-    <!doctype html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <title>Simple Accessible Mega Menu Example</title>
-    <style>
-        /* Rudimentary mega menu CSS for demonstration */    
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>accessible menu</title>
 
-        /* mega menu list */
-        .nav-menu {
-            display: block;
-            position: relative;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            z-index: 15;
-        }
+    <link rel="stylesheet" href="css/megamenu.css">
+    <link rel="stylesheet" href="css/style.css">
 
-        /* a top level navigation item in the mega menu */
-        .nav-item {
-            list-style: none;
-            display: inline-block;
-            padding: 0;
-            margin: 0;
-        }
+  </head>
+  <body>
 
-        /* first descendant link within a top level navigation item */
-        .nav-item > a {
-            position: relative;
-            display: inline-block;
-            padding: 0.5em 1em;
-            margin: 0 0 -1px 0;
-            border: 1px solid transparent;
-        }
-
-        /* focus/open states of first descendant link within a top level 
-           navigation item */
-        .nav-item > a:focus,
-        .nav-item > a.open {
-            border: 1px solid #dedede;
-        }
-
-        /* open state of first descendant link within a top level 
-           navigation item */
-        .nav-item > a.open {
-            background-color: #fff;
-            border-bottom: none;
-            z-index: 1;
-        }
-
-        /* sub-navigation panel */
-        .sub-nav {
-            position: absolute;
-            display: none;
-            top: 2.2em;
-            margin-top: -1px;
-            padding: 0.5em 1em;
-            border: 1px solid #dedede;
-            background-color: #fff;
-        }
-
-        /* sub-navigation panel open state */
-        .sub-nav.open {
-            display: block;
-        }
-
-        /* list of items within sub-navigation panel */
-        .sub-nav ul {
-            display: inline-block;
-            vertical-align: top;
-            margin: 0 1em 0 0;
-            padding: 0;
-        }
-
-        /* list item within sub-navigation panel */
-        .sub-nav li {
-            display: block;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }     
-    </style>
-    </head>
-    <body>
-    <nav>
+    <a id="nav-toggle" href="#primary-nav">MENU</a>
+    <nav id="primary-nav">
         <ul class="nav-menu">
+            <li class="nav-item"><a href="?tv">Home</a></li>
             <li class="nav-item">
                 <a href="?movie">Movies</a>
+                <i class="icon"></i>
                 <div class="sub-nav">
                     <ul class="sub-nav-group">
                         <li><a href="?movie&genre=0">Action &amp; Adventure</a></li>
@@ -333,6 +319,7 @@ Putting it all together, here is the completed example:
             </li>
             <li class="nav-item">
                 <a href="?tv">TV Shows</a>
+                <i class="icon"></i>
                 <div class="sub-nav">
                     <ul class="sub-nav-group">
                         <li><a href="?tv&genre=20">Classic TV</a></li>
@@ -351,44 +338,75 @@ Putting it all together, here is the completed example:
                     </ul>
                 </div>
             </li>
+            <li class="nav-item"><a href="?music">Music</a></li>
+            <li class="nav-item"><a href="?video-games">Video Games</a>
+              <i class="icon"></i>
+              <div class="sub-nav">
+                  <ul class="sub-nav-group">
+                      <li><a href="?video-games&genre=20">Role Playing</a></li>
+                      <li><a href="?video-games&genre=21">Strategy</a></li>
+                      <li>&#8230;</li>
+                  </ul>
+                  <ul class="sub-nav-group">
+                      <li><a href="?video-games&genre=27">FPS</a></li>
+                      <li><a href="?video-games&genre=30">Sports</a></li>
+                      <li>&#8230;</li>
+                  </ul>
+                  <ul class="sub-nav-group">
+                      <li><a href="?video-games&genre=33">Puzzle</a></li>
+                      <li><a href="?video-games&genre=34">Multiplayer</a></li>
+                      <li>&#8230;</li>
+                  </ul>
+              </div>
+            </li>
         </ul>
     </nav>
-    
-    <!-- include jquery -->
-    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 
-    <!-- include the jquery-accessibleMegaMenu plugin script -->
+    <script src="third-party/jquery/jquery-1.10.1.min.js"></script>
     <script src="js/jquery-accessibleMegaMenu.js"></script>
-
-    <!-- initialize a selector as an accessibleMegaMenu -->
+    <script src="js/main.js"></script>
     <script>
         $("nav:first").accessibleMegaMenu({
-            /* prefix for generated unique id attributes, which are required 
+
+            /* Button that toggles navigation at mobile */
+            navToggle: '#nav-toggle',
+
+            /* Id of navigation */
+            navId: '#primary-nav',
+
+            /* mobile breakpoint in pixels that determines when the menu goes to mobile */
+            mobileBreakpoint: '900',
+            /* prefix for generated unique id attributes, which are required
                to indicate aria-owns, aria-controls and aria-labelledby */
-            uuidPrefix: "accessible-megamenu",
-            
+            uuidPrefix: 'accessible-megamenu',
+
             /* css class used to define the megamenu styling */
-            menuClass: "nav-menu",
-            
+            menuClass: 'nav-menu',
+
             /* css class for a top-level navigation item in the megamenu */
-            topNavItemClass: "nav-item",
-            
+            topNavItemClass: 'nav-item',
+
+            /* css class for a top-level icon in the megamenu (displayed at mobile) */
+            topNavIconClass: '.icon',
+
             /* css class for a megamenu panel */
-            panelClass: "sub-nav",
-            
+            panelClass: 'sub-nav',
+
             /* css class for a group of items within a megamenu panel */
-            panelGroupClass: "sub-nav-group",
-            
+            panelGroupClass: 'sub-nav-group',
+
             /* css class for the hover state */
-            hoverClass: "hover",
-            
+            hoverClass: 'hover',
+
             /* css class for the focus state */
-            focusClass: "focus",
-            
+            focusClass: 'focus',
+
             /* css class for the open state */
-            openClass: "open"
+            openClass: 'open'
         });
     </script>
-    </body>
-    </html>
+
+  </body>
+</html>
+
 ```    
