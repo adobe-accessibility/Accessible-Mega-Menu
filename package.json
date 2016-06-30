@@ -1,0 +1,19 @@
+{
+  "name": "accessible-mega-menu",
+  "version": "1.0.0",
+  "description": "Fork of Adobe's Accessible Mega Menu ",
+  "main": "js/jquery-accessibleMegaMenu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noahmanger/Accessible-Mega-Menu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noahmanger/Accessible-Mega-Menu/issues"
+  },
+  "homepage": "https://github.com/noahmanger/Accessible-Mega-Menu#readme"
+}
