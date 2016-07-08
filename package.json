@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noahmanger/Accessible-Mega-Menu.git"
+    "url": "git+https://github.com/adobe-accessibility/Accessible-Mega-Menu.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Adobe Accessibility",
+  "license": "SEE LICENSE IN https://github.com/adobe-accessibility/Accessible-Mega-Menu/blob/master/LICENSE",
   "bugs": {
-    "url": "https://github.com/noahmanger/Accessible-Mega-Menu/issues"
+    "url": "https://github.com/adobe-accessibility/Accessible-Mega-Menu/issues"
   },
-  "homepage": "https://github.com/noahmanger/Accessible-Mega-Menu#readme"
+  "homepage": "https://github.com/adobe-accessibility/Accessible-Mega-Menu#readme"
 }
