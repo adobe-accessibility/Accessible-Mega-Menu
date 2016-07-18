@@ -55,7 +55,9 @@ limitations under the License.
             panelGroupClass: "accessible-megamenu-panel-group", // default css class for a group of items within a megamenu panel
             hoverClass: "hover", // default css class for the hover state
             focusClass: "focus", // default css class for the focus state
-            openClass: "open" // default css class for the open state
+            openClass: "open", // default css class for the open state
+            mouseOverDelay: 0, // default delay in milliseconds to determine hover intent so menu doesn't drop when mouse is simply passing over the menu
+            mouseOutDelay: 250 // default delay in milliseconds when menu will close after mouse exits
         },
         Keyboard = {
             BACKSPACE: 8,
@@ -647,11 +649,16 @@ limitations under the License.
          * @private
          */
         _mouseOverHandler = function (event) {
-            clearTimeout(this.mouseTimeoutID);
-            $(event.target)
+            var that = this;
+			$(event.target)
                 .addClass(this.settings.hoverClass);
-            _togglePanel.call(this, event);
-            if ($(event.target).is(':tabbable')) {
+
+            that.mouseTimeoutID = setTimeout(function () {
+            	if ($(event.target).is(':hover')) { // if still hovering, then show menu...
+	                _togglePanel.call(that, event);
+	            }
+            }, this.settings.mouseOverDelay);
+			if ($(event.target).is(':tabbable')) {
                 $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
             }
         };
@@ -671,7 +678,7 @@ limitations under the License.
 
             that.mouseTimeoutID = setTimeout(function () {
                 _togglePanel.call(that, event, true);
-            }, 250);
+            }, this.settings.mouseOutDelay ); 
             if ($(event.target).is(':tabbable')) {
                 $('html').off('keydown.accessible-megamenu');
             }
