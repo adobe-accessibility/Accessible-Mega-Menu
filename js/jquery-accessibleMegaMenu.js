@@ -649,6 +649,7 @@ limitations under the License.
          * @private
          */
         _mouseOverHandler = function (event) {
+            if (this.settings.openOnClick) { return; }
             clearTimeout(this.mouseTimeoutID);
             var that = this;
             this.mouseTimeoutID = setTimeout(function () {
@@ -760,7 +761,6 @@ limitations under the License.
                     .on("mouseover.accessible-megamenu", $.proxy(_mouseOverHandler, this))
                     .on("mouseout.accessible-megamenu", $.proxy(_mouseOutHandler, this))
                     .on("mousedown.accessible-megamenu", $.proxy(_mouseDownHandler, this));
-
                 if (isTouch) {
                     menu.on("touchstart.accessible-megamenu",  $.proxy(_clickHandler, this));
                 }
@@ -1001,6 +1001,7 @@ limitations under the License.
      * @param {string} [options.hoverClass=hover] - CSS class for the hover state
      * @param {string} [options.focusClass=focus] - CSS class for the focus state
      * @param {string} [options.openClass=open] - CSS class for the open state
+     * @param {boolean} [options.openOnClick=false] - Whether to open the menu on click (rather than hover)
      * @param {string} [options.openDelay=0] - Open delay when opening menu via mouseover
      */
     $.fn[pluginName] = function (options) {
