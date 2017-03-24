@@ -64,7 +64,7 @@ limitations under the License.
     -moz-outline-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup] {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded] {
     position: relative;
     display: block;
     line-height: 3em;
@@ -78,15 +78,15 @@ limitations under the License.
 }
 
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:hover, 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:focus {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus {
     color: #333 !important;
     outline-offset: -1px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:hover, 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:focus,
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
     margin-left: 0;
     background: #f5f8fa none;
     background: -webkit-gradient(linear,left top,left bottom,from(#f5f8fa),to(#e3e5e5));
@@ -94,19 +94,19 @@ limitations under the License.
     background: -ms-linear-gradient(top,#f5f8fa,#e3e5e5);
     background: -o-linear-gradient(top,#f5f8fa,#e3e5e5);
     z-index: 1002;
-    
+
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
     background: #f5f8fa none;
     padding-bottom: 2px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-haspopup] {
+.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded] {
     border-bottom-left-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded].open {
     border-bottom-left-radius: 0px;
     border-left: 1px solid rgba(0,0,0,0.3);
     left: -1px;
@@ -121,7 +121,7 @@ limitations under the License.
     margin: 0;
     padding: 1.538em 0.769em 0.769em;
     line-height: normal;
-    background-color: #f5f8fa;    
+    background-color: #f5f8fa;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f8fa),to(#e3e5e5));
     background-image: -moz-linear-gradient(top,#f5f8fa,#e3e5e5);
     background-image: -ms-linear-gradient(top,#f5f8fa,#e3e5e5);
@@ -130,7 +130,7 @@ limitations under the License.
     -webkit-box-shadow: 0 4px 6px -2px rgba(0,0,0,.5), inset 1px 1px 0 #fff;
        -moz-box-shadow: 0 4px 6px -2px -moz-rgba(0,0,0,.5), inset 1px 1px 0 #fff;
             box-shadow: 0 4px 6px -2px rgba(0,0,0,.5), inset 1px 1px 0 #fff;
-    
+
     visibility: hidden;
     top: -9999em;
     max-height: 0px;
@@ -141,7 +141,7 @@ limitations under the License.
         -ms-transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
          -o-transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
             transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
-    
+
     border: 1px solid rgba(0,0,0,0.3);
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -261,7 +261,7 @@ limitations under the License.
 .accessible-megamenu .accessible-megamenu-panel a:hover,
 .accessible-megamenu .accessible-megamenu-panel a:focus {
     color: #c30000;
-    text-decoration: underline;   
+    text-decoration: underline;
 }
 
 .accessible-megamenu .accessible-megamenu-panel > ol > li > h3 > a:hover,
@@ -286,7 +286,7 @@ limitations under the License.
     .accessible-megamenu .accessible-megamenu-top-nav-item {
         position: static;
     }
-    
+
     .accessible-megamenu .accessible-megamenu-panel.cols-4,
     .accessible-megamenu .accessible-megamenu-panel.cols-4b,
     .accessible-megamenu .accessible-megamenu-panel.cols-3,
@@ -296,7 +296,7 @@ limitations under the License.
         width: auto;
         left: -1px;
     }
-    
+
     .accessible-megamenu .accessible-megamenu-panel > ol > li,
     .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li,
     .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li,
@@ -304,7 +304,7 @@ limitations under the License.
     .accessible-megamenu .accessible-megamenu-panel.cols-1 > ol > li {
         width: 42%;
     }
-    
+
     .accessible-megamenu .accessible-megamenu-panel > ol > li:nth-of-type(3) {
         padding-left: 0;
         border-left: none;
@@ -324,24 +324,24 @@ limitations under the License.
         border-width: 0 0 1px 1px;
     }
     .accessible-megamenu .accessible-megamenu-top-nav-item:last-child,
-    .accessible-megamenu .accessible-megamenu-top-nav-item:last-child a[aria-haspopup] {
+    .accessible-megamenu .accessible-megamenu-top-nav-item:last-child a[aria-expanded] {
         border-bottom-right-radius: 3px;
     }
-    
-    .accessible-megamenu .accessible-megamenu-top-nav-item:last-child a[aria-haspopup].open {
+
+    .accessible-megamenu .accessible-megamenu-top-nav-item:last-child a[aria-expanded].open {
         border-bottom-right-radius: 0px;
         border-right: 1px solid rgba(0,0,0,0.3);
         right: -1px;
         margin-left: -1px;
     }
-    
+
     .accessible-megamenu .accessible-megamenu-panel.cols-4,
     .accessible-megamenu .accessible-megamenu-panel.cols-4b,
     .accessible-megamenu .accessible-megamenu-panel.cols-3,
     .accessible-megamenu .accessible-megamenu-panel.cols-1 {
         right: 1px;
     }
-    
+
     .accessible-megamenu .accessible-megamenu-panel.cols-4b,
     .accessible-megamenu .accessible-megamenu-panel.cols-3,
     .accessible-megamenu .accessible-megamenu-panel.cols-1 {
