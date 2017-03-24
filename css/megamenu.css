@@ -63,7 +63,7 @@ limitations under the License.
     -moz-outline-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup] {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded] {
     position: relative;
     display: block;
     line-height: 3em;
@@ -77,15 +77,15 @@ limitations under the License.
 }
 
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:hover, 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:focus {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus {
     color: #333 !important;
     outline-offset: -1px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:hover, 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup]:focus,
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus,
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
     margin-left: 0;
     background: #f5f8fa none;
     background: -webkit-gradient(linear,left top,left bottom,from(#f5f8fa),to(#e3e5e5));
@@ -93,19 +93,18 @@ limitations under the License.
     background: -ms-linear-gradient(top,#f5f8fa,#e3e5e5);
     background: -o-linear-gradient(top,#f5f8fa,#e3e5e5);
     z-index: 1002;
-    
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
     background: #f5f8fa none;
     padding-bottom: 2px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-haspopup] {
+.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded] {
     border-bottom-left-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-haspopup].open {
+.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded].open {
     border-bottom-left-radius: 0px;
     border-left: 1px solid #b3b3b3;
     border-left-color: rgba(0,0,0,0.3);
@@ -121,7 +120,7 @@ limitations under the License.
     margin: 0;
     padding: 0 0.769em 0.769em;
     line-height: normal;
-    background-color: #f5f8fa;    
+    background-color: #f5f8fa;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f8fa),to(#e3e5e5));
     background-image: -moz-linear-gradient(top,#f5f8fa,#e3e5e5);
     background-image: -ms-linear-gradient(top,#f5f8fa,#e3e5e5);
@@ -130,7 +129,7 @@ limitations under the License.
     -webkit-box-shadow: 0 4px 6px -2px rgba(0,0,0,.5), inset 1px 1px 0 #fff;
        -moz-box-shadow: 0 4px 6px -2px -moz-rgba(0,0,0,.5), inset 1px 1px 0 #fff;
             box-shadow: 0 4px 6px -2px rgba(0,0,0,.5), inset 1px 1px 0 #fff;
-    
+
     visibility: hidden;
     top: -9999em;
     max-height: 0px;
@@ -141,7 +140,7 @@ limitations under the License.
         -ms-transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
          -o-transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
             transition: opacity 250ms ease 250ms, max-height 500ms ease, visibility 0s linear 500ms, top 0s linear 500ms;
-    
+
     border: 1px solid #b3b3b3;
     border-color: rgba(0,0,0,0.3);
     border-top-right-radius: 3px;
@@ -262,7 +261,7 @@ limitations under the License.
 .accessible-megamenu .accessible-megamenu-panel a:hover,
 .accessible-megamenu .accessible-megamenu-panel a:focus {
     color: #225FD7;
-    text-decoration: underline;   
+    text-decoration: underline;
 }
 
 .accessible-megamenu .accessible-megamenu-panel > ol > li > h3 > a:hover,
