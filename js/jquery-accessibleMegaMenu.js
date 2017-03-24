@@ -55,7 +55,8 @@ limitations under the License.
             panelGroupClass: "accessible-megamenu-panel-group", // default css class for a group of items within a megamenu panel
             hoverClass: "hover", // default css class for the hover state
             focusClass: "focus", // default css class for the focus state
-            openClass: "open" // default css class for the open state
+            openClass: "open", // default css class for the open state
+            openDelay: 0 // default open delay when opening menu via mouseover
         },
         Keyboard = {
             BACKSPACE: 8,
@@ -633,6 +634,7 @@ limitations under the License.
             if ($(event.target).is(this.settings.panelClass) || $(event.target).closest(":focusable").length) {
                 this.mouseFocused = true;
             }
+            clearTimeout(this.mouseTimeoutID);
             this.mouseTimeoutID = setTimeout(function () {
                 clearTimeout(this.focusTimeoutID);
             }, 1);
@@ -647,13 +649,16 @@ limitations under the License.
          * @private
          */
         _mouseOverHandler = function (event) {
+            if (this.settings.openOnClick) { return; }
             clearTimeout(this.mouseTimeoutID);
-            $(event.target)
-                .addClass(this.settings.hoverClass);
-            _togglePanel.call(this, event);
-            if ($(event.target).is(':tabbable')) {
-                $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
-            }
+            var that = this;
+            this.mouseTimeoutID = setTimeout(function () {
+                $(event.target).addClass(that.settings.hoverClass);
+                _togglePanel.call(that, event);
+                if ($(event.target).is(':tabbable')) {
+                    $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
+                }
+            }, this.settings.openDelay);
         };
 
         /**
@@ -665,6 +670,7 @@ limitations under the License.
          * @private
          */
         _mouseOutHandler = function (event) {
+            clearTimeout(this.mouseTimeoutID);
             var that = this;
             $(event.target)
                 .removeClass(that.settings.hoverClass);
@@ -706,7 +712,10 @@ limitations under the License.
                 var settings = this.settings,
                     nav = $(this.element),
                     menu = nav.children().first(),
-                    topnavitems = menu.children();
+                     // Only filter to those items with the selector class
+                    topnavitems = this.settings.selectors.topNavItems ?
+                        menu.children(this.settings.selectors.topNavItems) :
+                            menu.children();
                 this.start(settings, nav, menu, topnavitems);
             },
 
@@ -752,7 +761,6 @@ limitations under the License.
                     .on("mouseover.accessible-megamenu", $.proxy(_mouseOverHandler, this))
                     .on("mouseout.accessible-megamenu", $.proxy(_mouseOutHandler, this))
                     .on("mousedown.accessible-megamenu", $.proxy(_mouseDownHandler, this));
-
                 if (isTouch) {
                     menu.on("touchstart.accessible-megamenu",  $.proxy(_clickHandler, this));
                 }
@@ -993,6 +1001,8 @@ limitations under the License.
      * @param {string} [options.hoverClass=hover] - CSS class for the hover state
      * @param {string} [options.focusClass=focus] - CSS class for the focus state
      * @param {string} [options.openClass=open] - CSS class for the open state
+     * @param {boolean} [options.openOnClick=false] - Whether to open the menu on click (rather than hover)
+     * @param {string} [options.openDelay=0] - Open delay when opening menu via mouseover
      */
     $.fn[pluginName] = function (options) {
         return this.each(function () {
