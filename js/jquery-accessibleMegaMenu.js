@@ -711,7 +711,10 @@ limitations under the License.
                 var settings = this.settings,
                     nav = $(this.element),
                     menu = nav.children().first(),
-                    topnavitems = menu.children();
+                     // Only filter to those items with the selector class
+                    topnavitems = this.settings.selectors.topNavItems ?
+                        menu.children(this.settings.selectors.topNavItems) :
+                            menu.children();
                 this.start(settings, nav, menu, topnavitems);
             },
 
