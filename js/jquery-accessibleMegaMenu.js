@@ -1,4 +1,4 @@
-/*
+https://github.com/JasonMSims/Accessible-Mega-Menu.git/*
 Copyright © 2013 Adobe Systems Incorporated.
 
 Licensed under the Apache License, Version 2.0 (the “License”);
@@ -56,7 +56,8 @@ limitations under the License.
             hoverClass: "hover", // default css class for the hover state
             focusClass: "focus", // default css class for the focus state
             openClass: "open", // default css class for the open state
-            openDelay: 0 // default open delay when opening menu via mouseover
+            openDelay: 0, // default open delay when opening menu via mouseover
+            closeDelay: 250 // default open delay when opening menu via mouseover
         },
         Keyboard = {
             BACKSPACE: 8,
@@ -676,7 +677,7 @@ limitations under the License.
 
             that.mouseTimeoutID = setTimeout(function () {
                 _togglePanel.call(that, event, true);
-            }, 250);
+            }, this.settings.closeDelay);
             if ($(event.target).is(':tabbable')) {
                 $('html').off('keydown.accessible-megamenu');
             }
@@ -999,6 +1000,7 @@ limitations under the License.
      * @param {string} [options.focusClass=focus] - CSS class for the focus state
      * @param {string} [options.openClass=open] - CSS class for the open state
      * @param {string} [options.openDelay=0] - Open delay when opening menu via mouseover
+     * @param {string} [options.closeDelay=250] - Open delay when opening menu via mouseover
      */
     $.fn[pluginName] = function (options) {
         return this.each(function () {
