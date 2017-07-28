@@ -164,7 +164,7 @@ limitations under the License.
         var uuid = 0,
             keydownTimeoutDuration = 1000,
             keydownSearchString = "",
-            isTouch = typeof window.hasOwnProperty === "function" && !!window.hasOwnProperty("ontouchstart"),
+            isTouch = 'ontouchstart' in window || window.navigator.msMaxTouchPoints,
             _getPlugin,
             _addUniqueId,
             _togglePanel,
@@ -303,7 +303,7 @@ limitations under the License.
                         event.preventDefault();
                         event.stopPropagation();
                         this.justFocused = false;
-                    } else if (isTouch) {
+                    } else if (isTouch && !target.hasClass(this.settings.openClass)) {
                         event.preventDefault();
                         event.stopPropagation();
                         _togglePanel.call(this, event, target.hasClass(this.settings.openClass));
