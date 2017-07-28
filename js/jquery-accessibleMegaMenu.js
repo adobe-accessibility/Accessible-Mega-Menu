@@ -47,6 +47,7 @@ limitations under the License.
 (function ($, window, document) {
     "use strict";
     var pluginName = "accessibleMegaMenu",
+        isRtl = ($('html').attr('dir') === 'rtl'),
         defaults = {
             uuidPrefix: "accessible-megamenu", // unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby
             menuClass: "accessible-megamenu", // default css class used to define the megamenu styling
@@ -127,6 +128,10 @@ limitations under the License.
                 190: "."
             }
         };
+
+        defaults.prevKey = isRtl ? Keyboard.RIGHT : Keyboard.LEFT,
+        defaults.nextKey =  isRtl ? Keyboard.LEFT : Keyboard.RIGHT;
+
     /**
      * @desc Creates a new accessible mega menu instance.
      * @param {jquery} element
@@ -491,7 +496,7 @@ limitations under the License.
                     found = ($(':tabbable:lt(' + $(':tabbable').index(target) + '):first').focus().length === 1);
                 }
                 break;
-            case Keyboard.RIGHT:
+            case defaults.nextKey:
                 event.preventDefault();
                 if (isTopNavItem) {
                     found = (topnavitems.filter(':gt(' + topnavitems.index(topli) + '):first').find(':tabbable:first').focus().length === 1);
@@ -506,7 +511,7 @@ limitations under the License.
                     }
                 }
                 break;
-            case Keyboard.LEFT:
+            case defaults.prevKey:
                 event.preventDefault();
                 if (isTopNavItem) {
                     found = (topnavitems.filter(':lt(' + topnavitems.index(topli) + '):last').find(':tabbable:first').focus().length === 1);
