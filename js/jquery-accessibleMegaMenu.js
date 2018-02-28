@@ -169,6 +169,7 @@ limitations under the License.
             _addUniqueId,
             _togglePanel,
             _clickHandler,
+            _touchmoveHandler,
             _clickOutsideHandler,
             _DOMAttrModifiedHandler,
             _focusInHandler,
@@ -287,6 +288,11 @@ limitations under the License.
          * @private
          */
         _clickHandler = function (event) {
+            if (this.justMoved) {
+                this.justMoved = false;
+                return;
+            }
+
             var target = $(event.target).closest(':tabbable'),
                 topli = target.closest('.' + this.settings.topNavItemClass),
                 panel = target.closest('.' + this.settings.panelClass);
@@ -310,6 +316,18 @@ limitations under the License.
                     }
                 }
             }
+        };
+
+        /**
+         * @name jQuery.fn.accessibleMegaMenu~_touchmoveHandler
+         * @desc Handle touch move event on menu
+         * @param {event} Event object
+         * @memberof jQuery.fn.accessibleMegaMenu
+         * @inner
+         * @private
+         */
+        _touchmoveHandler = function (event) {
+            this.justMoved = true;
         };
 
         /**
@@ -760,7 +778,8 @@ limitations under the License.
                     .on("mousedown.accessible-megamenu", $.proxy(_mouseDownHandler, this));
 
                 if (isTouch) {
-                    menu.on("touchstart.accessible-megamenu",  $.proxy(_clickHandler, this));
+                    menu.on("touchend.accessible-megamenu", $.proxy(_clickHandler, this));
+                    menu.on("touchmove.accessible-megamenu", $.proxy(_touchmoveHandler, this));
                 }
 
                 menu.find("hr").attr("role", "separator");
