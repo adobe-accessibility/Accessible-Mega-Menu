@@ -176,7 +176,8 @@ limitations under the License.
             _mouseDownHandler,
             _mouseOverHandler,
             _mouseOutHandler,
-            _toggleExpandedEventHandlers;
+            _toggleExpandedEventHandlers,
+            _setTopNavHeight;
 
         /**
          * @name jQuery.fn.accessibleMegaMenu~_getPlugin
@@ -268,6 +269,14 @@ limitations under the License.
                     .addClass(settings.openClass)
                     .filter('.' + settings.panelClass)
                     .attr('aria-hidden', 'false');
+
+                var pageScrollPosition = $('html')[0].scrollTop;
+                var openPanelTopPosition = $('.' + settings.panelClass + '.' + settings.openClass).parent().offset().top;
+                
+                if(pageScrollPosition > openPanelTopPosition) {
+                    $('html')[0].scrollTop = openPanelTopPosition;
+                }
+
                 if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.has(document.activeElement).length > 0) {
                     target.focus();
                     that.justFocused = false;
@@ -302,10 +311,10 @@ limitations under the License.
                         event.preventDefault();
                         event.stopPropagation();
                         this.justFocused = false;
-                    } else if (isTouch) {
+                    } else {
                         event.preventDefault();
                         event.stopPropagation();
-                        _togglePanel.call(this, event, target.hasClass(this.settings.openClass));
+                        _togglePanel.call(this, event, true);
                     }
                 }
             }
@@ -357,14 +366,9 @@ limitations under the License.
             clearTimeout(this.focusTimeoutID);
             var target = $(event.target),
                 panel = target.closest('.' + this.settings.panelClass);
-            target
-                .addClass(this.settings.focusClass)
-                .on('click.accessible-megamenu', $.proxy(_clickHandler, this));
+            target.addClass(this.settings.focusClass).on('click.accessible-megamenu', $.proxy(_mouseDownHandler, this));
             this.justFocused = !this.mouseFocused;
             this.mouseFocused = false;
-            if (this.panels.not(panel).filter('.' + this.settings.openClass).length) {
-                _togglePanel.call(this, event);
-            }
         };
 
         /**
@@ -381,10 +385,7 @@ limitations under the License.
                 target = $(event.target),
                 topli = target.closest('.' + this.settings.topNavItemClass),
                 keepOpen = false;
-            target
-                .removeClass(this.settings.focusClass)
-                .off('click.accessible-megamenu');
-
+            target.removeClass(this.settings.focusClass).off('click.accessible-megamenu');
             if (window.cvox) {
                 // If ChromeVox is running...
                 that.focusTimeoutID = setTimeout(function () {
@@ -555,13 +556,18 @@ limitations under the License.
             case Keyboard.SPACE:
                 if (isTopNavItem) {
                     event.preventDefault();
-                    _clickHandler.call(that, event);
+                    _mouseDownHandler.call(that, event);
                 } else {
                     return true;
                 }
                 break;
             case Keyboard.ENTER:
-                return true;
+                if (isTopNavItem) {
+                    event.preventDefault();
+                    _mouseDownHandler.call(that, event);
+                } else {
+                    return true;
+                }
                 break;
             default:
                 // alphanumeric filter
@@ -634,7 +640,9 @@ limitations under the License.
             if ($(event.target).is(this.settings.panelClass) || $(event.target).closest(":focusable").length) {
                 this.mouseFocused = true;
             }
-            clearTimeout(this.mouseTimeoutID);
+
+            _clickHandler.call(this, event);
+
             this.mouseTimeoutID = setTimeout(function () {
                 clearTimeout(this.focusTimeoutID);
             }, 1);
@@ -650,14 +658,11 @@ limitations under the License.
          */
         _mouseOverHandler = function (event) {
             clearTimeout(this.mouseTimeoutID);
-            var that = this;
-            this.mouseTimeoutID = setTimeout(function () {
-                $(event.target).addClass(that.settings.hoverClass);
-                _togglePanel.call(that, event);
-                if ($(event.target).is(':tabbable')) {
-                    $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
-                }
-            }, this.settings.openDelay);
+            $(event.target)
+                .addClass(this.settings.hoverClass);
+            if ($(event.target).is(':tabbable')) {
+                $('html').on('keydown.accessible-megamenu', $.proxy(_keyDownHandler, event.target));
+            }
         };
 
         /**
@@ -669,14 +674,10 @@ limitations under the License.
          * @private
          */
         _mouseOutHandler = function (event) {
-            clearTimeout(this.mouseTimeoutID);
             var that = this;
             $(event.target)
                 .removeClass(that.settings.hoverClass);
 
-            that.mouseTimeoutID = setTimeout(function () {
-                _togglePanel.call(that, event, true);
-            }, 250);
             if ($(event.target).is(':tabbable')) {
                 $('html').off('keydown.accessible-megamenu');
             }
@@ -695,6 +696,17 @@ limitations under the License.
                    To respond to the change to collapse the panel, we must add a listener for a DOMAttrModified event. */
                 menu.find('[aria-expanded=true].' + this.settings.panelClass).on('DOMAttrModified.accessible-megamenu', $.proxy(_DOMAttrModifiedHandler, this));
             }
+        };
+
+        _setTopNavHeight = function() {
+            var topNavHeight = 0;
+            var $menuItems = $('.' + this.settings.topNavItemClass + ', .' + this.settings.topNavItemClass + ' > a, .' + this.settings.menuClass);
+            $menuItems.css('height', 'auto');
+            $('.' + this.settings.topNavItemClass + ' > a').each( function() {
+                topNavHeight = ( $(this).outerHeight() > topNavHeight ) ? $(this).outerHeight() : topNavHeight;
+            });
+            $menuItems.css('height', topNavHeight);
+            $("." + this.settings.menuClass + " ." + this.settings.panelClass).css('top', topNavHeight);
         };
 
         /* public attributes and methods ------------------------- */
@@ -733,13 +745,13 @@ limitations under the License.
                     if (topnavitempanel.length) {
                         _addUniqueId.call(that, topnavitempanel);
                         topnavitemlink.attr({
-                            // "aria-haspopup": true,
+                            "aria-haspopup": true,
                             "aria-controls": topnavitempanel.attr("id"),
                             "aria-expanded": false
                         });
 
                         topnavitempanel.attr({
-                            "role": "region",
+                            "role": "group",
                             "aria-expanded": false,
                             "aria-hidden": true
                         })
@@ -1065,4 +1077,5 @@ limitations under the License.
             return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
         }
     });
+
 }(jQuery, window, document));
