@@ -269,6 +269,14 @@ limitations under the License.
                     .addClass(settings.openClass)
                     .filter('.' + settings.panelClass)
                     .attr('aria-hidden', 'false');
+
+                var pageScrollPosition = $('html')[0].scrollTop;
+                var openPanelTopPosition = $('.' + settings.panelClass + '.' + settings.openClass).parent().offset().top;
+                
+                if(pageScrollPosition > openPanelTopPosition) {
+                    $('html')[0].scrollTop = openPanelTopPosition;
+                }
+
                 if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.has(document.activeElement).length > 0) {
                     target.focus();
                     that.justFocused = false;
