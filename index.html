@@ -22,11 +22,11 @@ limitations under the License.
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Accessible Mega Menu</title>
 <script src="//use.edgefonts.net/source-sans-pro.js"></script>
-<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
 <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/megamenu.css">    
+<link rel="stylesheet" type="text/css" href="css/megamenu.css">
 <script src="js/jquery-accessibleMegaMenu.js"></script>
 <script src="js/main.js"></script>
 </head>
@@ -34,10 +34,15 @@ limitations under the License.
 <body class="init">
 <div class="LayoutGrid LayoutCenter PanelDiffuseShadow PanelFillExtraLight">
 <nav class="megamenu">
-    <ol>
+      <button class="accessible-megamenu-toggle" aria-expanded="false">
+        <span class="sr-only">Toggle Navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+      <ol>
         <li>
-            <h2><a role="button" href="http://www.w3.org/TR/WCAG/#perceivable">Perceivable</a></h2>
+            <h2><a href="http://www.w3.org/TR/WCAG/#perceivable">Perceivable</a></h2>
             <div class="cols-4">
+                <h2><a href="http://www.w3.org/TR/WCAG/#perceivable">1. Perceivable</a></h2>
                 <p>Information and user interface components must be presentable to users in ways they can perceive.</p>
                 <ol>
                     <li class="accessible-megamenu-panel-group">
@@ -98,8 +103,9 @@ limitations under the License.
             </div>
         </li>
         <li>
-            <h2><a role="button" href="http://www.w3.org/TR/WCAG/#operable">Operable</a></h2>
+            <h2><a href="http://www.w3.org/TR/WCAG/#operable">Operable</a></h2>
             <div class="cols-4b">
+                <h2><a href="http://www.w3.org/TR/WCAG/#operable">2. Operable</a></h2>
                 <p>User interface components and navigation must be operable.</p>
                 <ol>
                     <li class="accessible-megamenu-panel-group">
@@ -160,8 +166,9 @@ limitations under the License.
             </div>
         </li>
         <li>
-            <h2><a role="button" href="http://www.w3.org/TR/WCAG/#understandable">Understandable</a></h2>
+            <h2><a href="http://www.w3.org/TR/WCAG/#understandable">Understandable</a></h2>
             <div class="cols-3">
+                <h2><a href="http://www.w3.org/TR/WCAG/#understandable">3. Understandable</a></h2>
                 <p>Information and the operation of user interface must be understandable.</p>
                 <ol>
                     <li class="accessible-megamenu-panel-group">
@@ -217,8 +224,9 @@ limitations under the License.
             </div>
         </li>
         <li>
-            <h2><a role="button" href="http://www.w3.org/TR/WCAG/#robust">Robust</a></h2>
+            <h2><a href="http://www.w3.org/TR/WCAG/#robust">Robust</a></h2>
             <div class="cols-1">
+                <h2><a href="http://www.w3.org/TR/WCAG/#robust">4. Robust</a></h2>
                 <p>Content must be robust enough that it can be interpreted reliably by a wide variety of user agents, including assistive technologies.</p>
                 <ol>
                     <li class="accessible-megamenu-panel-group">
@@ -235,28 +243,28 @@ limitations under the License.
     </ol>
 </nav>
 <main role="main">
-    
+
     <h1>An Accessible Mega Menu</h1>
-    
+
     <p>The navigation at the top of this page demonstrates how one can implement an accessible mega menu as a jQuery plugin. It is modeled after the mega menu on <a href="http://adobe.com/">adobe.com</a> but has been simplified for use by others. An brief explanation of our interaction design choices can be found in a blog post at <a href="http://blogs.adobe.com/accessibility/2013/05/adobe-com.html">Mega menu accessibility on adobe.com</a>.</p>
-    
+
     <p>Content for the links and text within the mega menu comes from the <a href="http://www.w3.org/TR/WCAG/">Web Content Accessibility Guidelines (WCAG) 2.0</a>.</p>
-    
+
     <h2>Keyboard Accessibility</h2>
-    
+
     <p>The accessible mega menu supports keyboard interaction modeled after the behavior described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a>, however we also try to respect users' general expectations for the behavior of links in a global navigation. To this end, the accessible mega menu implementation permits tab focus on each of the six top-level menu items. When one of the menu items has focus, pressing the Enter key, Spacebar or Down arrow will open the submenu panel, and pressing the Left or Right arrow key will shift focus to the adjacent menu item. Links within the submenu panels are included in the tab order when the panel is open. They can also be navigated with the arrow keys or by typing the first character in the link name, which speeds up keyboard navigation considerably. Pressing the Escape key closes the submenu and restores focus to the parent menu item.</p>
-    
+
     <h2>Screen Reader Accessibility</h2>
-    
+
     <p>The accessible mega menu models its use of WAI-ARIA Roles, States, and Properties after those described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a> with some notable exceptions, so that it behaves better with screen reader user expectations for global navigation. We don't use <code class="prettyprint">role="menu"</code> for the menu container and <code class="prettyprint">role="menuitem"</code> for each of the links therein, because if we do, assistive technology will no longer interpret the links as links, but instead, as menu items, and the links in our global navigation will no longer show up when a screen reader user executes a shortcut command to bring up a list of links in the page.</p>
     <p>We also want to maintain the semantic structure of the submenu panels in our mega menu; our links are organized into lists and separated by headings. Omitting <code class="prettyprint">role="menu"</code> and <code class="prettyprint">role="menuitem"</code> for the global navigation seems the safer way to go.</p>
-    
+
     <h2>Usage</h2>
-    
+
     <h3>HTML</h3>
-    
+
     <p>The HTML structure for the mega menu is a nav element, or any other container element, containing a list. Each list item contains a link which is followed by a div or any other container element which will serve as the pop up panel. The panel can contain any html content; in the following example, each panel contains three lists of links. You can explicitly define groups within the panel, between which a user can navigate quickly using the left and right arrow keys; in the following example, the CSS class <code class="prettyprint">.sub-nav-group</code> identifies a navigable group.</p>
-    
+
     <pre class="prettyprint">
     &lt;nav&gt;
         &lt;ul class=&quot;nav-menu&quot;&gt;
@@ -302,51 +310,51 @@ limitations under the License.
             &lt;/li&gt;
         &lt;/ul&gt;
     &lt;/nav&gt;</pre>
-    
+
     <p>By default, accessibleMegaMenu uses the the following CSS classes to define the top-level navigation items, panels, groups within the panels, and the hover, focus, and open states. It also defines a prefix for unique id strings, which are required to indicate the relationship of a top-level navigation item to the panel it controls.</p>
-    
+
     <pre class="prettyprint">
     defaults = {
-        /* unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby *&#47; 
+        /* unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby *&#47;
         uuidPrefix: "accessible-megamenu",
 
-        /* default css class used to define the megamenu styling *&#47; 
+        /* default css class used to define the megamenu styling *&#47;
         menuClass: "accessible-megamenu",
 
-        /* default css class for a top-level navigation item in the megamenu *&#47; 
+        /* default css class for a top-level navigation item in the megamenu *&#47;
         topNavItemClass: "accessible-megamenu-top-nav-item",
 
-        /* default css class for a megamenu panel *&#47; 
+        /* default css class for a megamenu panel *&#47;
         panelClass: "accessible-megamenu-panel",
 
-        /* default css class for a group of items within a megamenu panel *&#47; 
+        /* default css class for a group of items within a megamenu panel *&#47;
         panelGroupClass: "accessible-megamenu-panel-group",
 
-        /* default css class for the hover state *&#47; 
+        /* default css class for the hover state *&#47;
         hoverClass: "hover",
 
-        /* default css class for the focus state *&#47; 
+        /* default css class for the focus state *&#47;
         focusClass: "focus",
 
-        /* default css class for the open state *&#47; 
-        openClass: "open" 
+        /* default css class for the open state *&#47;
+        openClass: "open"
     }</pre>
-    
+
     <p>You can optionally override the defaults to use the CSS classes you may have already defined for your mega menu.</p>
-    
+
     <h3>JavaScript</h3>
-    
+
     <p>Be sure to include jQuery and the jquery-accessibleMegaMenu.js plugin script.</p>
-    
+
     <pre class="prettyprint">
     &lt;script src=&quot;js/vendor/jquery-1.10.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script src=&quot;js/jquery-accessibleMegaMenu.js&quot;&gt;&lt;/script&gt;</pre>
-    
+
     <p>The following initializes the first nav element in the document as an accessibleMegaMenu, with optional CSS class overrides.</p>
-    
+
     <pre class="prettyprint">
     $(&quot;nav:first&quot;).accessibleMegaMenu({
-        /* prefix for generated unique id attributes, which are required 
+        /* prefix for generated unique id attributes, which are required
            to indicate aria-owns, aria-controls and aria-labelledby *&#47;
         uuidPrefix: &quot;accessible-megamenu&quot;,
 
@@ -371,15 +379,15 @@ limitations under the License.
         /* css class for the open state *&#47;
         openClass: &quot;open&quot;
     });</pre>
-    
+
     <h3>CSS</h3>
-    
+
     <p>AccessibleMegaMenu handles the showing and hiding of panels by adding or removing a CSS class. No inline styles are added to hide elements or create animation between states.</p>
-    
+
     <p>Following is some rudimentary CSS for our example which enables the showing/hiding of and the layout of lists panels in the mega menu.</p>
-    
+
     <pre class="prettyprint">
-    /* Rudimentary mega menu CSS for demonstration *&#47;    
+    /* Rudimentary mega menu CSS for demonstration *&#47;
 
     /* mega menu list *&#47;
     .nav-menu {
@@ -390,7 +398,7 @@ limitations under the License.
         padding: 0;
         z-index: 15;
     }
-    
+
     /* a top level navigation item in the mega menu *&#47;
     .nav-item {
         list-style: none;
@@ -398,7 +406,7 @@ limitations under the License.
         padding: 0;
         margin: 0;
     }
-    
+
     /* first descendant link within a top level navigation item *&#47;
     .nav-item &gt; a {
         position: relative;
@@ -407,22 +415,22 @@ limitations under the License.
         margin: 0 0 -1px 0;
         border: 1px solid transparent;
     }
-    
-    /* focus/open states of first descendant link within a top level 
+
+    /* focus/open states of first descendant link within a top level
        navigation item *&#47;
     .nav-item &gt; a:focus,
     .nav-item &gt; a.open {
         border: 1px solid #dedede;
     }
-    
-    /* open state of first descendant link within a top level 
+
+    /* open state of first descendant link within a top level
        navigation item *&#47;
     .nav-item &gt; a.open {
         background-color: #fff;
         border-bottom: none;
         z-index: 1;
     }
-    
+
     /* sub-navigation panel *&#47;
     .sub-nav {
         position: absolute;
@@ -433,12 +441,12 @@ limitations under the License.
         border: 1px solid #dedede;
         background-color: #fff;
     }
-    
+
     /* sub-navigation panel open state *&#47;
     .sub-nav.open {
         display: block;
     }
-    
+
     /* list of items within sub-navigation panel *&#47;
     .sub-nav ul {
         display: inline-block;
@@ -446,7 +454,7 @@ limitations under the License.
         margin: 0 1em 0 0;
         padding: 0;
     }
-    
+
     /* list item within sub-navigation panel *&#47;
     .sub-nav li {
         display: block;
@@ -454,14 +462,14 @@ limitations under the License.
         margin: 0;
         padding: 0;
     }</pre>
-    
+
     <h3>Completed Example</h3>
-    
+
     <p>Putting it all together, here is the completed example:</p>
-    
+
     <style>
-        /* Rudimentary mega menu CSS for demonstration */    
-    
+        /* Rudimentary mega menu CSS for demonstration */
+
         /* mega menu list */
         .nav-menu {
             display: block;
@@ -471,7 +479,7 @@ limitations under the License.
             padding: 0;
             z-index: 15;
         }
-        
+
         /* a top level navigation item in the mega menu */
         .nav-item {
             list-style: none;
@@ -479,7 +487,7 @@ limitations under the License.
             padding: 0;
             margin: 0;
         }
-        
+
         /* first descendant link within a top level navigation item */
         .nav-item > a {
             position: relative;
@@ -488,22 +496,22 @@ limitations under the License.
             margin: 0 0 -1px 0;
             border: 1px solid transparent;
         }
-        
-        /* focus/open states of first descendant link within a top level 
+
+        /* focus/open states of first descendant link within a top level
            navigation item */
         .nav-item > a:focus,
         .nav-item > a.nav-menu-open {
             border: 1px solid #dedede;
         }
-        
-        /* open state of first descendant link within a top level 
+
+        /* open state of first descendant link within a top level
            navigation item */
         .nav-item > a.nav-menu-open {
             background-color: #fff;
             border-bottom: none;
             z-index: 1;
         }
-        
+
         /* sub-navigation panel */
         .sub-nav {
             position: absolute;
@@ -514,12 +522,12 @@ limitations under the License.
             border: 1px solid #dedede;
             background-color: #fff;
         }
-        
+
         /* sub-navigation panel open state */
         .sub-nav.nav-menu-open {
             display: block;
         }
-        
+
         /* list of items within sub-navigation panel */
         .sub-nav ul {
             display: inline-block;
@@ -527,16 +535,16 @@ limitations under the License.
             margin: 0 1em 0 0;
             padding: 0;
         }
-        
+
         /* list item within sub-navigation panel */
         .sub-nav li {
             display: block;
             list-style-type: none;
             margin: 0;
             padding: 0;
-        }     
+        }
     </style>
-    
+
     <nav id="test-nav-menu">
         <ul class="nav-menu">
             <li class="nav-item">
@@ -581,11 +589,11 @@ limitations under the License.
             </li>
         </ul>
     </nav>
-    
+
     <!-- initialize a selector as an accessibleMegaMenu -->
     <script>
         $("nav#test-nav-menu").accessibleMegaMenu({
-            /* prefix for generated unique id attributes, which are required 
+            /* prefix for generated unique id attributes, which are required
                to indicate aria-owns, aria-controls and aria-labelledby */
             uuidPrefix: "accessible-megamenu",
 
@@ -611,7 +619,7 @@ limitations under the License.
             openClass: "nav-menu-open"
         });
     </script>
-    
+
     <pre class="prettyprint">
     &lt;!doctype html&gt;
     &lt;html lang=&quot;en&quot;&gt;
@@ -619,8 +627,8 @@ limitations under the License.
     &lt;meta charset=&quot;UTF-8&quot;&gt;
     &lt;title&gt;Simple Accessible Mega Menu Example&lt;/title&gt;
     &lt;style&gt;
-        /* Rudimentary mega menu CSS for demonstration *&#47;    
-    
+        /* Rudimentary mega menu CSS for demonstration *&#47;
+
         /* mega menu list *&#47;
         .nav-menu {
             display: block;
@@ -630,7 +638,7 @@ limitations under the License.
             padding: 0;
             z-index: 15;
         }
-        
+
         /* a top level navigation item in the mega menu *&#47;
         .nav-item {
             list-style: none;
@@ -638,7 +646,7 @@ limitations under the License.
             padding: 0;
             margin: 0;
         }
-        
+
         /* first descendant link within a top level navigation item *&#47;
         .nav-item &gt; a {
             position: relative;
@@ -647,22 +655,22 @@ limitations under the License.
             margin: 0 0 -1px 0;
             border: 1px solid transparent;
         }
-        
-        /* focus/open states of first descendant link within a top level 
+
+        /* focus/open states of first descendant link within a top level
            navigation item *&#47;
         .nav-item &gt; a:focus,
         .nav-item &gt; a.open {
             border: 1px solid #dedede;
         }
-        
-        /* open state of first descendant link within a top level 
+
+        /* open state of first descendant link within a top level
            navigation item *&#47;
         .nav-item &gt; a.open {
             background-color: #fff;
             border-bottom: none;
             z-index: 1;
         }
-        
+
         /* sub-navigation panel *&#47;
         .sub-nav {
             position: absolute;
@@ -673,12 +681,12 @@ limitations under the License.
             border: 1px solid #dedede;
             background-color: #fff;
         }
-        
+
         /* sub-navigation panel open state *&#47;
         .sub-nav.open {
             display: block;
         }
-        
+
         /* list of items within sub-navigation panel *&#47;
         .sub-nav ul {
             display: inline-block;
@@ -686,14 +694,14 @@ limitations under the License.
             margin: 0 1em 0 0;
             padding: 0;
         }
-        
+
         /* list item within sub-navigation panel *&#47;
         .sub-nav li {
             display: block;
             list-style-type: none;
             margin: 0;
             padding: 0;
-        }     
+        }
     &lt;/style&gt;
     &lt;/head&gt;
     &lt;body&gt;
@@ -747,11 +755,11 @@ limitations under the License.
 
     &lt;!-- include the jquery-accessibleMegaMenu plugin script --&gt;
     &lt;script src=&quot;js/jquery-accessibleMegaMenu.js&quot;&gt;&lt;/script&gt;
-    
+
     &lt;!-- initialize a selector as an accessibleMegaMenu --&gt;
     &lt;script&gt;
         $(&quot;nav:first&quot;).accessibleMegaMenu({
-            /* prefix for generated unique id attributes, which are required 
+            /* prefix for generated unique id attributes, which are required
                to indicate aria-owns, aria-controls and aria-labelledby *&#47;
             uuidPrefix: &quot;accessible-megamenu&quot;,
 

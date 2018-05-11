@@ -1,18 +1,19 @@
 /*
 Copyright © 2013 Adobe Systems Incorporated.
-
 Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
 http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an “AS IS” BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+.megamenu {
+  position: relative;
+}
 
 .accessible-megamenu {
     position: relative;
@@ -40,9 +41,10 @@ limitations under the License.
     margin: 0;
     padding: 0;
     line-height: inherit;
+    border-bottom: 0;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item {
+.accessible-megamenu > .accessible-megamenu-top-nav-item {
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -63,7 +65,7 @@ limitations under the License.
     -moz-outline-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded] {
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded] {
     position: relative;
     display: block;
     line-height: 3em;
@@ -77,15 +79,15 @@ limitations under the License.
 }
 
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus {
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded]:focus {
     color: #333 !important;
     outline-offset: -1px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded]:focus,
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded]:hover,
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded]:focus,
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded].open {
     margin-left: 0;
     background: #f5f8fa none;
     background: -webkit-gradient(linear,left top,left bottom,from(#f5f8fa),to(#e3e5e5));
@@ -95,16 +97,16 @@ limitations under the License.
     z-index: 1002;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item a[aria-expanded].open {
+.accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded].open {
     background: #f5f8fa none;
     padding-bottom: 2px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded] {
+.accessible-megamenu > .accessible-megamenu-top-nav-item:first-child a[aria-expanded] {
     border-bottom-left-radius: 3px;
 }
 
-.accessible-megamenu .accessible-megamenu-top-nav-item:first-child a[aria-expanded].open {
+.accessible-megamenu > .accessible-megamenu-top-nav-item:first-child a[aria-expanded].open {
     border-bottom-left-radius: 0px;
     border-left: 1px solid #b3b3b3;
     border-left-color: rgba(0,0,0,0.3);
@@ -264,6 +266,18 @@ limitations under the License.
     text-decoration: underline;
 }
 
+.accessible-megamenu .accessible-megamenu-panel > h2 > a {
+    font-weight: bold;
+    color: #454545;
+    font-size: 1.5em;
+    margin-bottom: 0;
+    margin-top: .8em;
+    padding-bottom: 0;
+    line-height: 1.4em;
+}
+
+.accessible-megamenu .accessible-megamenu-panel > h2 > a:hover,
+.accessible-megamenu .accessible-megamenu-panel > h2 > a:focus,
 .accessible-megamenu .accessible-megamenu-panel > ol > li > h3 > a:hover,
 .accessible-megamenu .accessible-megamenu-panel > ol > li > h3 > a:focus {
     color: #333;
@@ -274,4 +288,198 @@ limitations under the License.
     border-style: solid;
     border-top-color: rgba(0,0,0, 0.3);
     border-bottom-color: #fff;
+}
+
+/* hides redundant header links in panel when megamenu is not initialized */
+.accessible-megamenu:not(.js-accessible-megamenu) .accessible-megamenu-panel > h2 {
+    display: none;
+}
+
+.accessible-megamenu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  right: 1em;
+  width: 33px;
+  height: 33px;
+}
+
+.accessible-megamenu-toggle > span:not(.sr-only) {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+
+  background: #000;
+  border-radius: 3px;
+
+  z-index: 1;
+
+  transform-origin: 0 0;
+
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              margin 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+.accessible-megamenu-toggle > span {
+  margin-top: 5px;
+}
+
+.accessible-megamenu-toggle > span:nth-last-child(1) {
+  transform-origin: 0% 100%;
+}
+
+/*
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+.accessible-megamenu-toggle[aria-expanded=true] > span
+{
+  margin-top: 0;
+  opacity: 1;
+  transform: rotate(45deg) translate(4px, -3px);
+  background: #000;
+  border-radius: 0;
+}
+
+/*
+ * But, hide the middle one.
+ */
+.accessible-megamenu-toggle[aria-expanded=true] > span:nth-last-child(2)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * the last one should go the other direction.
+ */
+.accessible-megamenu-toggle[aria-expanded=true] > span:nth-last-child(1)
+{
+  transform: rotate(-45deg) translate(0px, 7px);
+}
+
+@media (max-width: 920px) {
+  .accessible-megamenu > .accessible-megamenu-top-nav-item {
+    position: static;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-4,
+  .accessible-megamenu .accessible-megamenu-panel.cols-4b,
+  .accessible-megamenu .accessible-megamenu-panel.cols-3,
+  .accessible-megamenu .accessible-megamenu-panel.cols-1 {
+    width: auto;
+    left: 0;
+    right: 0;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.open {
+    max-height: inherit
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li {
+    width: 44%;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-1 > ol > li {
+    width: 100%;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li {
+    min-height: 256px;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel > ol > li {
+    float: left;
+    display: block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li:nth-of-type(3),
+  .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li:nth-of-type(3),
+  .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li:nth-of-type(3)  {
+    padding-left: 0;
+    border-left: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 434px) {
+  .accessible-megamenu-toggle {
+    display: block;
+    z-index: 3;
+  }
+
+  .accessible-megamenu-toggle ~ .accessible-megamenu > .accessible-megamenu-top-nav-item {
+    height: 0;
+    overflow: hidden;
+    visibility: collapse;
+  }
+
+  .accessible-megamenu-toggle[aria-expanded=true] ~ .accessible-megamenu > .accessible-megamenu-top-nav-item {
+    height: auto;
+    overflow: visible;
+    visibility: visible;
+  }
+
+  .accessible-megamenu {
+    height: auto;
+    padding-top: 3.077em;
+    z-index: 2;
+  }
+
+  .accessible-megamenu > .accessible-megamenu-top-nav-item {
+    border-right: 0;
+    float: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .accessible-megamenu > .accessible-megamenu-top-nav-item a[aria-expanded] {
+    box-shadow: none;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel,
+  .accessible-megamenu .accessible-megamenu-panel.open {
+    position: relative;
+    top: 0;
+    border: 0;
+    box-shadow: none;
+    padding-bottom: 0;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.open {
+    padding-bottom: 0.769em;
+    max-height: 350px;
+    overflow: auto;
+  }
+
+
+}
+
+@media (max-width: 414px) {
+  .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-1 > ol > li {
+    width: 100%;
+  }
+
+  .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li,
+  .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li  {
+    padding-left: 0;
+    border-left: none;
+    box-shadow: none;
+  }
 }

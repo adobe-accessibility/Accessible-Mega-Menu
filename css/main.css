@@ -25,7 +25,7 @@ body
 
 html
 {
-    font-size: 13px;
+    font-size: 0.8125em;
     line-height: 1.5;
 }
 
@@ -34,6 +34,10 @@ body
     font-family: source-sans-pro, sans-serif;
     color: #333;
     cursor: default;
+}
+
+pre {
+  overflow: auto;
 }
 
 code,
@@ -58,10 +62,9 @@ h2
 
 .LayoutGrid
 {
-    width: 900px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    max-width: 900px;
+    min-width: 300px;
+    padding: 0 10px 10px;
 }
 
 .LayoutCenter
@@ -93,7 +96,7 @@ h2
 
 :link{
     color: #225FD7;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 :link:focus {
@@ -109,4 +112,14 @@ h2
 :link:active,
 :link:hover {
     outline: 0;
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  margin: 0 -1px -1px 0;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  position: absolute;
 }
