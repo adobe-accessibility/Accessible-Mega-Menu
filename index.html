@@ -1,246 +1,256 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<title>Accessible Mega Menu</title>
-<link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="css/pygment_trac.css">
-<script src="js/scale.fix.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<!--[if lt IE 9]>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Accessible Mega Menu</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pygment_trac.css">
+    <script src="js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-<link rel="stylesheet" href="css/megamenu/megamenu.css">
-<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="js/jquery-accessibleMegaMenu.js"></script>
-<script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/megamenu/megamenu.css">
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/jquery-accessibleMegaMenu.js"></script>
+    <script src="js/main.js"></script>
 </head>
+
 <body class="init">
-<div class="wrapper">
-    <nav class="megamenu">
-        <ol>
-            <li>
-                <h2><a href="http://www.w3.org/TR/WCAG/#perceivable">Perceivable</a></h2>
-                <div class="cols-4">
-                    <p>Information and user interface components must be presentable to users in ways they can perceive.</p>
-                    <ol>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG/#text-equiv">1.1 Text Alternatives</a></h3>
-                            <p>Provide text alternatives for any non-text content so that it can be changed into other forms people need, such as large print, braille, speech, symbols or simpler language.</p>
+    <div class="wrapper">
+        <div class="LayoutGrid LayoutCenter">
+            <nav class="megamenu">
+                <button class="accessible-megamenu-toggle" aria-expanded="false">
+        <span class="sr-only">Toggle Navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+                <ol>
+                    <li>
+                        <h2><a href="http://www.w3.org/TR/WCAG/#perceivable">Perceivable</a></h2>
+                        <div class="cols-4">
+                            <h2><a href="http://www.w3.org/TR/WCAG/#perceivable">1. Perceivable</a></h2>
+                            <p>Information and user interface components must be presentable to users in ways they can perceive.</p>
                             <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#text-equiv-all">1.1.1 Non-text Content</a></li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG/#text-equiv">1.1 Text Alternatives</a></h3>
+                                    <p>Provide text alternatives for any non-text content so that it can be changed into other forms people need, such as large print, braille, speech, symbols or simpler language.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#text-equiv-all">1.1.1 Non-text Content</a></li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG/#media-equiv">1.2 Time-based Media</a></h3>
+                                    <p>Provide alternatives for time-based media.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-av-only-alt">1.2.1 Audio-only and Video-only (Prerecorded)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-captions">1.2.2 Captions (Prerecorded)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-audio-desc">1.2.3 Audio Description or Media Alternative (Prerecorded)</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-captions">1.2.4 Captions (Live)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-audio-desc-only">1.2.5 Audio Description (Prerecorded)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-sign">1.2.6 Sign Language (Prerecorded)</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-extended-ad">1.2.7 Extended Audio Description (Prerecorded)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-text-doc">1.2.8 Media Alternative (Prerecorded)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-live-audio-only">1.2.9 Audio-only (Live)</a></li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation">1.3 Adaptable</a></h3>
+                                    <p>Create content that can be presented in different ways (for example simpler layout) without losing information or structure.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-programmatic">1.3.1 Info and Relationships</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-sequence">1.3.2 Meaningful Sequence</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-understanding">1.3.3 Sensory Characteristics</a></li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast">1.4 Distinguishable</a></h3>
+                                    <p>Make it easier for users to see and hear content including separating foreground from background.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-without-color">1.4.1 Use of Color</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-dis-audio">1.4.2 Audio Control</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast">1.4.3 Contrast (Minimum)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-scale">1.4.4 Resize Text</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-text-presentation">1.4.5 Images of Text</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast7">1.4.6 Contrast (Enhanced)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-noaudio">1.4.7 Low or No Background Audio</a></li>
+                                        <li><a href="http://www.w3.org/WAI/WCAG20/quickref/#qr-visual-audio-contrast-visual-presentation">1.4.8 Visual Presentation</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-text-images">1.4.9 Images of Text (No Exception)</a></li>
+                                    </ol>
+                                </li>
                             </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG/#media-equiv">1.2 Time-based Media</a></h3>
-                            <p>Provide alternatives for time-based media.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2><a href="http://www.w3.org/TR/WCAG/#operable">Operable</a></h2>
+                        <div class="cols-4b">
+                            <h2><a href="http://www.w3.org/TR/WCAG/#operable">2. Operable</a></h2>
+                            <p>User interface components and navigation must be operable.</p>
                             <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-av-only-alt">1.2.1 Audio-only and Video-only (Prerecorded)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-captions">1.2.2 Captions (Prerecorded)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-audio-desc">1.2.3 Audio Description or Media Alternative (Prerecorded)</a>
-                                    <hr/>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation">2.1 Keyboard Accessible</a></h3>
+                                    <p>Make all functionality available from a keyboard.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-keyboard-operable">2.1.1 Keyboard</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-trapping">2.1.2 No Keyboard Trap</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-all-funcs">2.1.3 Keyboard (No Exception)</a></li>
+                                    </ol>
                                 </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-captions">1.2.4 Captions (Live)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-audio-desc-only">1.2.5 Audio Description (Prerecorded)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-sign">1.2.6 Sign Language (Prerecorded)</a>
-                                    <hr/>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#time-limits">2.2 Enough Time</a></h3>
+                                    <p>Provide users enough time to read and use content.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-required-behaviors">2.2.1 Timing Adjustable</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-pause">2.2.2 Pause, Stop, Hide</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-no-exceptions">2.2.3 Interruptions</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-postponed">2.2.4 Interruptions</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-server-timeout">2.2.5 Re-authenticating</a></li>
+                                    </ol>
                                 </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-extended-ad">1.2.7 Extended Audio Description (Prerecorded)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-text-doc">1.2.8 Media Alternative (Prerecorded)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#media-equiv-live-audio-only">1.2.9 Audio-only (Live)</a></li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#seizure">2.3 Seizures</a></h3>
+                                    <p>Do not design content in a way that is known to cause seizures.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#seizure-does-not-violate">2.3.1 Three Flashes or Below Threshold</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#seizure-three-times">2.3.2 Three Flashes</a> </li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms">2.4 Navigable</a></h3>
+                                    <p>Provide ways to help users navigate, find content, and determine where they are.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-skip">2.4.1 Bypass Blocks</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-title">2.4.2 Page Titled</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-focus-order">2.4.3 Focus Order</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-refs">2.4.4 Link Purpose (In Context)</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-mult-loc">2.4.5 Multiple Ways</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-descriptive">2.4.6 Headings and Labels</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-focus-visible">2.4.7 Focus Visible</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-location">2.4.8 Location</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-link">2.4.9 Link Purpose (Link Only)</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-headings">2.4.10 Section Headings</a></li>
+                                    </ol>
+                                </li>
                             </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation">1.3 Adaptable</a></h3>
-                            <p>Create content that can be presented in different ways (for example simpler layout) without losing information or structure.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2><a href="http://www.w3.org/TR/WCAG/#understandable">Understandable</a></h2>
+                        <div class="cols-3">
+                            <h2><a href="http://www.w3.org/TR/WCAG/#understandable">3. Understandable</a></h2>
+                            <p>Information and the operation of user interface must be understandable.</p>
                             <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-programmatic">1.3.1 Info and Relationships</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-sequence">1.3.2 Meaningful Sequence</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#content-structure-separation-understanding">1.3.3 Sensory Characteristics</a></li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#meaning">3.1 Readable</a></h3>
+                                    <p>Make text content readable and understandable.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-doc-lang-id">3.1.1 Language of Page</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-other-lang-id">3.1.2 Language of Parts</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-idioms">3.1.3 Unusual Words</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-located">3.1.4 Abbreviations</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-supplements">3.1.5 Reading Level</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#meaning-pronunciation">3.1.6 Pronunciation</a></li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior">3.2 Predictable</a></h3>
+                                    <p>Make Web pages appear and operate in predictable ways.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-receive-focus">3.2.1 On Focus</a> </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-unpredictable-change">3.2.2 On Input</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-consistent-locations">3.2.3 Consistent Navigation</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-consistent-functionality">3.2.4 Consistent Identification</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-no-extreme-changes-context">3.2.5 Change on Request</a></li>
+                                    </ol>
+                                </li>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#minimize-error">3.3 Input Assistance</a></h3>
+                                    <p>Help users avoid and correct mistakes.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-identified">3.3.1 Error Identification</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-cues">3.3.2 Labels or Instructions</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-suggestions">3.3.3 Error Suggestion</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-reversible">3.3.4 Error Prevention (Legal, Financial, Data)</a>
+                                            <hr/>
+                                        </li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-context-help">3.3.5 Help</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-reversible-all">3.3.6 Error Prevention (All)</a></li>
+                                    </ol>
+                                </li>
                             </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast">1.4 Distinguishable</a></h3>
-                            <p>Make it easier for users to see and hear content including separating foreground from background.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2><a href="http://www.w3.org/TR/WCAG/#robust">Robust</a></h2>
+                        <div class="cols-1">
+                            <h2><a href="http://www.w3.org/TR/WCAG/#robust">4. Robust</a></h2>
+                            <p>Content must be robust enough that it can be interpreted reliably by a wide variety of user agents, including assistive technologies.</p>
                             <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-without-color">1.4.1 Use of Color</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-dis-audio">1.4.2 Audio Control</a>
-                                    <hr/>
+                                <li class="accessible-megamenu-panel-group">
+                                    <h3><a href="http://www.w3.org/TR/WCAG20/#ensure-compat">4.1 Compatible</a></h3>
+                                    <p>Maximize compatibility with current and future user agents, including assistive technologies.</p>
+                                    <ol>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#ensure-compat-parses">4.1.1 Parsing</a></li>
+                                        <li><a href="http://www.w3.org/TR/WCAG20/#ensure-compat-rsv">4.1.2 Name, Role, Value</a></li>
+                                    </ol>
                                 </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast">1.4.3 Contrast (Minimum)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-scale">1.4.4 Resize Text</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-text-presentation">1.4.5 Images of Text</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast7">1.4.6 Contrast (Enhanced)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-noaudio">1.4.7 Low or No Background Audio</a></li>
-                                <li><a href="http://www.w3.org/WAI/WCAG20/quickref/#qr-visual-audio-contrast-visual-presentation">1.4.8 Visual Presentation</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast-text-images">1.4.9 Images of Text (No Exception)</a></li>
                             </ol>
-                        </li>
-                    </ol>
-                </div>
-            </li>
-            <li>
-                <h2><a href="http://www.w3.org/TR/WCAG/#operable">Operable</a></h2>
-                <div class="cols-4b">
-                    <p>User interface components and navigation must be operable.</p>
-                    <ol>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation">2.1 Keyboard Accessible</a></h3>
-                            <p>Make all functionality available from a keyboard.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-keyboard-operable">2.1.1 Keyboard</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-trapping">2.1.2 No Keyboard Trap</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#keyboard-operation-all-funcs">2.1.3 Keyboard (No Exception)</a></li>
-                            </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#time-limits">2.2 Enough Time</a></h3>
-                            <p>Provide users enough time to read and use content.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-required-behaviors">2.2.1 Timing Adjustable</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-pause">2.2.2 Pause, Stop, Hide</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-no-exceptions">2.2.3 Interruptions</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-postponed">2.2.4 Interruptions</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#time-limits-server-timeout">2.2.5 Re-authenticating</a></li>
-                            </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#seizure">2.3 Seizures</a></h3>
-                            <p>Do not design content in a way that is known to cause seizures.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#seizure-does-not-violate">2.3.1 Three Flashes or Below Threshold</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#seizure-three-times">2.3.2 Three Flashes</a> </li>
-                            </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms">2.4 Navigable</a></h3>
-                            <p>Provide ways to help users navigate, find content, and determine where they are.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-skip">2.4.1 Bypass Blocks</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-title">2.4.2 Page Titled</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-focus-order">2.4.3 Focus Order</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-refs">2.4.4 Link Purpose (In Context)</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-mult-loc">2.4.5 Multiple Ways</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-descriptive">2.4.6 Headings and Labels</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-focus-visible">2.4.7 Focus Visible</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-location">2.4.8 Location</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-link">2.4.9 Link Purpose (Link Only)</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms-headings">2.4.10 Section Headings</a></li>
-                            </ol>
-                        </li>
-                    </ol>
-                </div>
-            </li>
-            <li>
-                <h2><a href="http://www.w3.org/TR/WCAG/#understandable">Understandable</a></h2>
-                <div class="cols-3">
-                    <p>Information and the operation of user interface must be understandable.</p>
-                    <ol>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#meaning">3.1 Readable</a></h3>
-                            <p>Make text content readable and understandable.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-doc-lang-id">3.1.1 Language of Page</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-other-lang-id">3.1.2 Language of Parts</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-idioms">3.1.3 Unusual Words</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-located">3.1.4 Abbreviations</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-supplements">3.1.5 Reading Level</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#meaning-pronunciation">3.1.6 Pronunciation</a></li>
-                            </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior">3.2 Predictable</a></h3>
-                            <p>Make Web pages appear and operate in predictable ways.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-receive-focus">3.2.1 On Focus</a> </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-unpredictable-change">3.2.2 On Input</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-consistent-locations">3.2.3 Consistent Navigation</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-consistent-functionality">3.2.4 Consistent Identification</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#consistent-behavior-no-extreme-changes-context">3.2.5 Change on Request</a></li>
-                            </ol>
-                        </li>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#minimize-error">3.3 Input Assistance</a></h3>
-                            <p>Help users avoid and correct mistakes.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-identified">3.3.1 Error Identification</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-cues">3.3.2 Labels or Instructions</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-suggestions">3.3.3 Error Suggestion</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-reversible">3.3.4 Error Prevention (Legal, Financial, Data)</a>
-                                    <hr/>
-                                </li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-context-help">3.3.5 Help</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#minimize-error-reversible-all">3.3.6 Error Prevention (All)</a></li>
-                            </ol>
-                        </li>
-                    </ol>
-                </div>
-            </li>
-            <li>
-                <h2><a href="http://www.w3.org/TR/WCAG/#robust">Robust</a></h2>
-                <div class="cols-1">
-                    <p>Content must be robust enough that it can be interpreted reliably by a wide variety of user agents, including assistive technologies.</p>
-                    <ol>
-                        <li class="accessible-megamenu-panel-group">
-                            <h3><a href="http://www.w3.org/TR/WCAG20/#ensure-compat">4.1 Compatible</a></h3>
-                            <p>Maximize compatibility with current and future user agents, including assistive technologies.</p>
-                            <ol>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#ensure-compat-parses">4.1.1 Parsing</a></li>
-                                <li><a href="http://www.w3.org/TR/WCAG20/#ensure-compat-rsv">4.1.2 Name, Role, Value</a></li>
-                            </ol>
-                        </li>
-                    </ol>
-                </div>
-            </li>
-        </ol>
-    </nav>
-    <header>
-        <h1 class="header">Accessible Mega Menu</h1>
-        <p class="header">A demonstration of how to implement a keyboard and screen reader accessible mega menu as a jQuery plugin.</p>
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/adobe-accessibility">adobe-accessibility</a></p>
-        <p class="header"><a class="header name forkme" href="https://github.com/adobe-accessibility/Accessible-Mega-Menu/"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" aria-label="Fork me on GitHub">Fork me on GitHub</a></p>
-    </header>
-    <section>
-        <h1>Accessible Mega Menu</h1>
-    <p>The navigation menu at the top of this page demonstrates how one can implement an accessible mega menu as a jQuery plugin. It is modeled after the mega menu on <a href="http://adobe.com/">adobe.com</a> but has been simplified for use by others. An brief explanation of our interaction design choices can be found in a blog post at <a href="http://blogs.adobe.com/accessibility/2013/05/adobe-com.html">Mega menu accessibility on adobe.com</a>.</p>
-        <p>Content for the links and text within the mega menu comes from the <a href="http://www.w3.org/TR/WCAG/">Web Content Accessibility Guidelines (WCAG) 2.0</a>.</p>
-        <h2>Keyboard Accessibility</h2>
-        <p>The accessible mega menu supports keyboard interaction modeled after the behavior described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a>, however we also try to respect users' general expectations for the behavior of links in a global navigation. To this end, the accessible mega menu implementation permits tab focus on each of the six top-level menu items. When one of the menu items has focus, pressing the Enter key, Spacebar or Down arrow will open the submenu panel, and pressing the Left or Right arrow key will shift focus to the adjacent menu item. Links within the submenu panels are included in the tab order when the panel is open. They can also be navigated with the arrow keys or by typing the first character in the link name, which speeds up keyboard navigation considerably. Pressing the Escape key closes the submenu and restores focus to the parent menu item.</p>
-        <h2>Screen Reader Accessibility</h2>
-        <p>The accessible mega menu models its use of WAI-ARIA Roles, States, and Properties after those described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a> with some notable exceptions, so that it behaves better with screen reader user expectations for global navigation. We don't use <code>role="menu"</code> for the menu container and <code>role="menuitem"</code> for each of the links therein, because if we do, assistive technology will no longer interpret the links as links, but instead, as menu items, and the links in our global navigation will no longer show up when a screen reader user executes a shortcut command to bring up a list of links in the page.</p>
-        <p>We also want to maintain the semantic structure of the submenu panels in our mega menu; our links are organized into lists and separated by headings. Omitting <code>role="menu"</code> and <code>role="menuitem"</code> for the global navigation seems the safer way to go.</p>
-        <h2>Usage</h2>
-        <h3>HTML</h3>
-        <p>The HTML structure for the mega menu is a <code>nav</code> element, or any other container element, containing a list. Each list item contains a link which is followed by a <code>div</code> or any other container element which will serve as the pop up panel.
-            The panel can contain any html content; in the following example, each panel contains three lists of links. You can explicitly define groups within the panel, between which a user can navigate quickly using the left and right arrow keys; in the following example, the CSS class <code>.sub-nav-group</code> identifies a navigable group.</p>
-        <div class="highlight">
-            <pre>    <span class="nt">&lt;nav&gt;</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <header>
+            <h1 class="header">Accessible Mega Menu</h1>
+            <p class="header">A demonstration of how to implement a keyboard and screen reader accessible mega menu as a jQuery plugin.</p>
+            <p class="header">This project is maintained by <a class="header name" href="https://github.com/adobe-accessibility">adobe-accessibility</a></p>
+            <p class="header"><a class="header name forkme" href="https://github.com/adobe-accessibility/Accessible-Mega-Menu/"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" aria-label="Fork me on GitHub">Fork me on GitHub</a></p>
+        </header>
+        <section>
+            <h1>Accessible Mega Menu</h1>
+            <p>The navigation menu at the top of this page demonstrates how one can implement an accessible mega menu as a jQuery plugin. It is modeled after the mega menu on <a href="http://adobe.com/">adobe.com</a> but has been simplified for use by others. An brief explanation of our interaction design choices can be found in a blog post at <a href="http://blogs.adobe.com/accessibility/2013/05/adobe-com.html">Mega menu accessibility on adobe.com</a>.</p>
+            <p>Content for the links and text within the mega menu comes from the <a href="http://www.w3.org/TR/WCAG/">Web Content Accessibility Guidelines (WCAG) 2.0</a>.</p>
+            <h2>Keyboard Accessibility</h2>
+            <p>The accessible mega menu supports keyboard interaction modeled after the behavior described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a>, however we also try to respect users' general expectations for the behavior of links in a global navigation. To this end, the accessible mega menu implementation permits tab focus on each of the six top-level menu items. When one of the menu items has focus, pressing the Enter key, Spacebar or Down arrow will open the submenu panel, and pressing the Left or Right arrow key will shift focus to the adjacent menu item. Links within the submenu panels are included in the tab order when the panel is open. They can also be navigated with the arrow keys or by typing the first character in the link name, which speeds up keyboard navigation considerably. Pressing the Escape key closes the submenu and restores focus to the parent menu item.</p>
+            <h2>Screen Reader Accessibility</h2>
+            <p>The accessible mega menu models its use of WAI-ARIA Roles, States, and Properties after those described in the <a href="http://www.w3.org/TR/wai-aria-practices/#menu">WAI-ARIA Menu or Menu bar (widget) design pattern</a> with some notable exceptions, so that it behaves better with screen reader user expectations for global navigation. We don't use <code>role="menu"</code> for the menu container and <code>role="menuitem"</code> for each of the links therein, because if we do, assistive technology will no longer interpret the links as links, but instead, as menu items, and the links in our global navigation will no longer show up when a screen reader user executes a shortcut command to bring up a list of links in the page.</p>
+            <p>We also want to maintain the semantic structure of the submenu panels in our mega menu; our links are organized into lists and separated by headings. Omitting <code>role="menu"</code> and <code>role="menuitem"</code> for the global navigation seems the safer way to go.</p>
+            <h2>Usage</h2>
+            <h3>HTML</h3>
+            <p>The HTML structure for the mega menu is a <code>nav</code> element, or any other container element, containing a list. Each list item contains a link which is followed by a <code>div</code> or any other container element which will serve as the pop up panel. The panel can contain any html content; in the following example, each panel contains three lists of links. You can explicitly define groups within the panel, between which a user can navigate quickly using the left and right arrow keys; in the following example, the CSS class <code>.sub-nav-group</code> identifies a navigable group.</p>
+            <div class="highlight">
+                <pre>    <span class="nt">&lt;nav&gt;</span>
         <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav-menu"</span><span class="nt">&gt;</span>
             <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
                 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"?movie"</span><span class="nt">&gt;</span>Movies<span class="nt">&lt;/a&gt;</span>
@@ -285,10 +295,10 @@
         <span class="nt">&lt;/ul&gt;</span>
     <span class="nt">&lt;/nav&gt;</span>
 </pre>
-        </div>
-        <p>By default, accessibleMegaMenu uses the the following CSS classes to define the top-level navigation items, panels, groups within the panels, and the hover, focus, and open states. It also defines a prefix for unique id strings, which are required to indicate the relationship of a top-level navigation item to the panel it controls.</p>
-        <div class="highlight">
-            <pre>    <span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            </div>
+            <p>By default, accessibleMegaMenu uses the the following CSS classes to define the top-level navigation items, panels, groups within the panels, and the hover, focus, and open states. It also defines a prefix for unique id strings, which are required to indicate the relationship of a top-level navigation item to the panel it controls.</p>
+            <div class="highlight">
+                <pre>    <span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
         <span class="cm">/* unique ID's are required to indicate aria-owns, aria-controls and aria-labelledby */</span>
         <span class="nx">uuidPrefix</span><span class="o">:</span> <span class="s2">"accessible-megamenu"</span><span class="p">,</span>
 
@@ -314,18 +324,18 @@
         <span class="nx">openClass</span><span class="o">:</span> <span class="s2">"open"</span>
     <span class="p">}</span>
 </pre>
-        </div>
-        <p>You can optionally override the defaults to use the CSS classes you may have already defined for your mega menu. </p>
-        <h3>JavaScript</h3>
-        <p>Be sure to include jQuery and the jquery-accessibleMegaMenu.js plugin script.</p>
-        <div class="highlight">
-            <pre>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/vendor/jquery-1.10.1.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+            </div>
+            <p>You can optionally override the defaults to use the CSS classes you may have already defined for your mega menu. </p>
+            <h3>JavaScript</h3>
+            <p>Be sure to include jQuery and the jquery-accessibleMegaMenu.js plugin script.</p>
+            <div class="highlight">
+                <pre>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/vendor/jquery-1.10.1.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/jquery-accessibleMegaMenu.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre>
-        </div>
-        <p>The following initializes the first nav element in the document as an accessibleMegaMenu, with optional CSS class overrides.</p>
-        <div class="highlight">
-            <pre>    <span class="nx">$</span><span class="p">(</span><span class="s2">"nav:first"</span><span class="p">).</span><span class="nx">accessibleMegaMenu</span><span class="p">({</span>
+            </div>
+            <p>The following initializes the first nav element in the document as an accessibleMegaMenu, with optional CSS class overrides.</p>
+            <div class="highlight">
+                <pre>    <span class="nx">$</span><span class="p">(</span><span class="s2">"nav:first"</span><span class="p">).</span><span class="nx">accessibleMegaMenu</span><span class="p">({</span>
         <span class="cm">/* prefix for generated unique id attributes, which are required </span>
 <span class="cm">           to indicate aria-owns, aria-controls and aria-labelledby */</span>
         <span class="nx">uuidPrefix</span><span class="o">:</span> <span class="s2">"accessible-megamenu"</span><span class="p">,</span>
@@ -352,12 +362,12 @@
         <span class="nx">openClass</span><span class="o">:</span> <span class="s2">"open"</span>
     <span class="p">});</span>
 </pre>
-        </div>
-        <h3>CSS</h3>
-        <p>AccessibleMegaMenu handles the showing and hiding of panels by adding or removing a CSS class. No inline styles are added to hide elements or create animation between states.</p>
-        <p>Following is some rudimentary CSS for our example which enables the showing/hiding of and the layout of lists panels in the mega menu.</p>
-        <div class="highlight">
-            <pre>    <span class="c">/* mega menu list */</span>
+            </div>
+            <h3>CSS</h3>
+            <p>AccessibleMegaMenu handles the showing and hiding of panels by adding or removing a CSS class. No inline styles are added to hide elements or create animation between states.</p>
+            <p>Following is some rudimentary CSS for our example which enables the showing/hiding of and the layout of lists panels in the mega menu.</p>
+            <div class="highlight">
+                <pre>    <span class="c">/* mega menu list */</span>
     <span class="nc">.nav-menu</span> <span class="p">{</span>
         <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
         <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
@@ -431,163 +441,172 @@
         <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
     <span class="p">}</span>
 </pre>
-        </div>
-        <p>Putting it all together, here is the completed example:</p>
+            </div>
+            <p>Putting it all together, here is the completed example:</p>
 
-        <style>
-            /* Rudimentary mega menu CSS for demonstration */
+            <style>
+                /* Rudimentary mega menu CSS for demonstration */
 
-            /* mega menu list */
-            .nav-menu {
-                display: block;
-                position: relative;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                z-index: 15;
-            }
+                /* mega menu list */
 
-            /* a top level navigation item in the mega menu */
-            .nav-item {
-                list-style: none;
-                display: inline-block;
-                padding: 0;
-                margin: 0;
-            }
+                .nav-menu {
+                    display: block;
+                    position: relative;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    z-index: 15;
+                }
 
-            /* first descendant link within a top level navigation item */
-            .nav-item > a {
-                position: relative;
-                display: inline-block;
-                padding: 0.5em 1em;
-                margin: 0 0 -1px 0;
-                border: 1px solid transparent;
-            }
+                /* a top level navigation item in the mega menu */
 
-            /* focus/open states of first descendant link within a top level
+                .nav-item {
+                    list-style: none;
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                /* first descendant link within a top level navigation item */
+
+                .nav-item>a {
+                    position: relative;
+                    display: inline-block;
+                    padding: 0.5em 1em;
+                    margin: 0 0 -1px 0;
+                    border: 1px solid transparent;
+                }
+
+                /* focus/open states of first descendant link within a top level
                navigation item */
-            .nav-item > a:focus,
-            .nav-item > a.open {
-                border: 1px solid #dedede;
-            }
 
-            /* open state of first descendant link within a top level
+                .nav-item>a:focus,
+                .nav-item>a.open {
+                    border: 1px solid #dedede;
+                }
+
+                /* open state of first descendant link within a top level
                navigation item */
-            .nav-item > a.open {
-                background-color: #fff;
-                border-bottom: none;
-                z-index: 1;
-            }
 
-            /* sub-navigation panel */
-            .sub-nav {
-                position: absolute;
-                display: none;
-                top: 2.8em;
-                margin-top: -1px;
-                padding: 0.5em 1em;
-                border: 1px solid #dedede;
-                background-color: #fff;
-            }
+                .nav-item>a.open {
+                    background-color: #fff;
+                    border-bottom: none;
+                    z-index: 1;
+                }
 
-            /* sub-navigation panel open state */
-            .sub-nav.open {
-                display: block;
-            }
+                /* sub-navigation panel */
 
-            /* list of items within sub-navigation panel */
-            .sub-nav ul {
-                display: inline-block;
-                vertical-align: top;
-                margin: 0 1em 0 0;
-                padding: 0;
-            }
+                .sub-nav {
+                    position: absolute;
+                    display: none;
+                    top: 2.8em;
+                    margin-top: -1px;
+                    padding: 0.5em 1em;
+                    border: 1px solid #dedede;
+                    background-color: #fff;
+                }
 
-            /* list item within sub-navigation panel */
-            .sub-nav li {
-                display: block;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <nav id="example">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="?movie">Movies</a>
-                    <div class="sub-nav">
-                        <ul class="sub-nav-group">
-                            <li><a href="?movie&genre=0">Action &amp; Adventure</a></li>
-                            <li><a href="?movie&genre=2">Children &amp; Family</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                        <ul class="sub-nav-group">
-                            <li><a href="?movie&genre=7">Dramas</a></li>
-                            <li><a href="?movie&genre=9">Foreign</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                        <ul class="sub-nav-group">
-                            <li><a href="?movie&genre=14">Musicals</a></li>
-                            <li><a href="?movie&genre=15">Romance</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="?tv">TV Shows</a>
-                    <div class="sub-nav">
-                        <ul class="sub-nav-group">
-                            <li><a href="?tv&genre=20">Classic TV</a></li>
-                            <li><a href="?tv&genre=21">Crime TV</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                        <ul class="sub-nav-group">
-                            <li><a href="?tv&genre=27">Reality TV</a></li>
-                            <li><a href="?tv&genre=30">TV Action</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                        <ul class="sub-nav-group">
-                            <li><a href="?tv&genre=33">TV Dramas</a></li>
-                            <li><a href="?tv&genre=34">TV Horror</a></li>
-                            <li>&#8230;</li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+                /* sub-navigation panel open state */
 
-        <!-- initialize a selector as an accessibleMegaMenu -->
-        <script>
-            $("nav#example").accessibleMegaMenu({
-                /* prefix for generated unique id attributes, which are required
-                   to indicate aria-owns, aria-controls and aria-labelledby */
-                uuidPrefix: "accessible-megamenu",
+                .sub-nav.open {
+                    display: block;
+                }
 
-                /* css class used to define the megamenu styling */
-                menuClass: "nav-menu",
+                /* list of items within sub-navigation panel */
 
-                /* css class for a top-level navigation item in the megamenu */
-                topNavItemClass: "nav-item",
+                .sub-nav ul {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin: 0 1em 0 0;
+                    padding: 0;
+                }
 
-                /* css class for a megamenu panel */
-                panelClass: "sub-nav",
+                /* list item within sub-navigation panel */
 
-                /* css class for a group of items within a megamenu panel */
-                panelGroupClass: "sub-nav-group",
+                .sub-nav li {
+                    display: block;
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                }
+            </style>
+            <nav id="example">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="?movie">Movies</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="?movie&genre=0">Action &amp; Adventure</a></li>
+                                <li><a href="?movie&genre=2">Children &amp; Family</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                            <ul class="sub-nav-group">
+                                <li><a href="?movie&genre=7">Dramas</a></li>
+                                <li><a href="?movie&genre=9">Foreign</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                            <ul class="sub-nav-group">
+                                <li><a href="?movie&genre=14">Musicals</a></li>
+                                <li><a href="?movie&genre=15">Romance</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="?tv">TV Shows</a>
+                        <div class="sub-nav">
+                            <ul class="sub-nav-group">
+                                <li><a href="?tv&genre=20">Classic TV</a></li>
+                                <li><a href="?tv&genre=21">Crime TV</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                            <ul class="sub-nav-group">
+                                <li><a href="?tv&genre=27">Reality TV</a></li>
+                                <li><a href="?tv&genre=30">TV Action</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                            <ul class="sub-nav-group">
+                                <li><a href="?tv&genre=33">TV Dramas</a></li>
+                                <li><a href="?tv&genre=34">TV Horror</a></li>
+                                <li>&#8230;</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
-                /* css class for the hover state */
-                hoverClass: "hover",
+            <!-- initialize a selector as an accessibleMegaMenu -->
+            <script>
+                $("nav#example").accessibleMegaMenu({
+                    /* prefix for generated unique id attributes, which are required
+                       to indicate aria-owns, aria-controls and aria-labelledby */
+                    uuidPrefix: "accessible-megamenu",
 
-                /* css class for the focus state */
-                focusClass: "focus",
+                    /* css class used to define the megamenu styling */
+                    menuClass: "nav-menu",
 
-                /* css class for the open state */
-                openClass: "open"
-            });
-        </script>
+                    /* css class for a top-level navigation item in the megamenu */
+                    topNavItemClass: "nav-item",
 
-        <div class="highlight">
-            <pre>    <span class="cp">&lt;!doctype html&gt;</span>
+                    /* css class for a megamenu panel */
+                    panelClass: "sub-nav",
+
+                    /* css class for a group of items within a megamenu panel */
+                    panelGroupClass: "sub-nav-group",
+
+                    /* css class for the hover state */
+                    hoverClass: "hover",
+
+                    /* css class for the focus state */
+                    focusClass: "focus",
+
+                    /* css class for the open state */
+                    openClass: "open"
+                });
+            </script>
+
+            <div class="highlight">
+                <pre>    <span class="cp">&lt;!doctype html&gt;</span>
     <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
@@ -754,13 +773,13 @@
     <span class="nt">&lt;/body&gt;</span>
     <span class="nt">&lt;/html&gt;</span>
 </pre>
-        </div>
-    </section>
-    <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-    </footer>
-</div>
-<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+            </div>
+        </section>
+        <footer>
+            <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+        </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 
 </body>
 </html>
