@@ -855,7 +855,6 @@ limitations under the License.
 
                         topnavitempanel.attr({
                             "role": "region",
-                            "aria-expanded": false,
                             "aria-hidden": true
                         })
                             .addClass(settings.panelClass)
