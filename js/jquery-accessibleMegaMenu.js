@@ -608,11 +608,22 @@ limitations under the License.
                 break;
             case Keyboard.SPACE:
             case Keyboard.ENTER:
+                // Top level links.
                 if (isTopNavItem) {
                     event.preventDefault();
-                    _clickHandler.call(that, event);
-                } else {
-                    return true;
+                    // Handle enter event on open top level link as escape event.
+                    if (target.hasClass("open")) {
+                        this.mouseFocused = false;
+                        _togglePanel.call(that, event, true);
+                    }
+                    // Handle enter event on top level link as a click.
+                    else {
+                        _clickHandler.call(that, event);
+                    }
+                }
+                // Sub level links.
+                else {
+                  return true;
                 }
                 break;
             default:
