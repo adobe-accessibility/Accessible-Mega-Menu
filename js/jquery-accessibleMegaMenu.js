@@ -239,17 +239,25 @@ limitations under the License.
 
             _toggleExpandedEventHandlers.call(this, true);
 
+            // Hide all panels.
             if (hide) {
+                // Get the first top level menu item.
                 topli = menu.find('.' + settings.topNavItemClass + ' .' + settings.openClass + ':first').closest('.' + settings.topNavItemClass);
+                // Validate event.
                 if (!(topli.is(event.relatedTarget) || topli.has(event.relatedTarget).length > 0)) {
                     if ((event.type === 'mouseout' || event.type === 'focusout') && topli.has(document.activeElement).length > 0) {
                         return;
                     }
+
+                    // Close top level link.
                     topli.find('[aria-expanded]')
                         .attr('aria-expanded', 'false')
                         .removeClass(settings.openClass)
-                        .filter('.' + settings.panelClass)
+                    // Close panel.
+                    topli.find('.' + settings.panelClass)
+                        .removeClass(settings.openClass)
                         .attr('aria-hidden', 'true');
+
                     if ((event.type === 'keydown' && event.keyCode === Keyboard.ESCAPE) || event.type === 'DOMAttrModified') {
                         newfocus = topli.find(':tabbable:first');
                         setTimeout(function () {
@@ -262,28 +270,39 @@ limitations under the License.
                     menu.find('[aria-expanded=true]')
                         .attr('aria-expanded', 'false')
                         .removeClass(settings.openClass)
-                        .filter('.' + settings.panelClass)
+                        .closest('.' + settings.panelClass)
+                        .removeClass(settings.openClass)
                         .attr('aria-hidden', 'true');
                 }
-            } else {
+            }
+            // Toggle panels.
+            else {
                 clearTimeout(that.focusTimeoutID);
-                topli.siblings()
-                    .find('[aria-expanded]')
-                    .attr('aria-expanded', 'false')
-                    .removeClass(settings.openClass)
-                    .filter('.' + settings.panelClass)
-                    .attr('aria-hidden', 'true');
+                // Close previously open top level link and its panel.
+                var openli = menu.find('[aria-expanded=true]').parent();
+                if (!openli.is(topli)) {
+                    openli.find('[aria-expanded]')
+                        .attr('aria-expanded', 'false')
+                        .removeClass(settings.openClass)
+                        .closest('.' + settings.panelClass)
+                        .removeClass(settings.openClass)
+                        .attr('aria-hidden', 'true');
+                }
+                // Open current top level link and its panel.
                 topli.find('[aria-expanded]')
                     .attr('aria-expanded', 'true')
                     .addClass(settings.openClass)
-                    .filter('.' + settings.panelClass)
+                    .closest('.' + settings.panelClass)
+                    .addClass(settings.openClass)
                     .attr('aria-hidden', 'false');
 
-                var pageScrollPosition = $('html')[0].scrollTop;
-                var openPanelTopPosition = $('.' + settings.panelClass + '.' + settings.openClass).parent().offset().top;
+                if (topli.length) {
+                    var pageScrollPosition = $('html')[0].scrollTop;
+                    var openPanelTopPosition = topli.offset().top;
 
-                if(pageScrollPosition > openPanelTopPosition) {
-                    $('html')[0].scrollTop = openPanelTopPosition;
+                    if (pageScrollPosition > openPanelTopPosition) {
+                        $('html')[0].scrollTop = openPanelTopPosition;
+                    }
                 }
 
                 if (event.type === 'mouseover' && target.is(':tabbable') && topli.length === 1 && panel.length === 0 && menu.has(document.activeElement).length > 0) {
