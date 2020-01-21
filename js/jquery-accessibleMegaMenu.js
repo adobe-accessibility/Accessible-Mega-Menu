@@ -307,25 +307,33 @@ limitations under the License.
             var target = $(event.target).closest(':tabbable'),
                 topli = target.closest('.' + this.settings.topNavItemClass),
                 panel = target.closest('.' + this.settings.panelClass);
-            if (topli.length === 1
-                    && panel.length === 0
-                    && topli.find('.' + this.settings.panelClass).length === 1) {
+            // With panel.
+            if (topli.length === 1 && panel.length === 0 && topli.find('.' + this.settings.panelClass).length === 1) {
                 if (!target.hasClass(this.settings.openClass)) {
                     event.preventDefault();
                     event.stopPropagation();
                     _togglePanel.call(this, event);
                     this.justFocused = false;
-                } else {
+                }
+                else {
+                    // Handle focus event.
                     if (this.justFocused) {
                         event.preventDefault();
                         event.stopPropagation();
                         this.justFocused = false;
-                    } else if (isTouch || !isTouch && !this.settings.openOnMouseover) {
+                    }
+                    // Handle touch/click event.
+                    else if (isTouch || !isTouch && !this.settings.openOnMouseover) {
                         event.preventDefault();
                         event.stopPropagation();
                         _togglePanel.call(this, event, target.hasClass(this.settings.openClass));
                     }
                 }
+            }
+            // Without panel.
+            else if (topli.length === 1) {
+                // Ignore error "Cannot read property 'getCurrent' of undefined" in Chrome DevTools.
+                window.location.href = target.attr("href");
             }
         };
 
@@ -411,7 +419,7 @@ limitations under the License.
             target
                 .removeClass(this.settings.focusClass);
 
-            if (window.cvox) {
+            if (typeof window.cvox !== 'undefined' && window.cvox == true) {
                 // If ChromeVox is running...
                 that.focusTimeoutID = setTimeout(function () {
                     window.cvox.Api.getCurrentNode(function (node) {
