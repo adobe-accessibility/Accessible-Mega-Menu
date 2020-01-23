@@ -822,8 +822,8 @@ limitations under the License.
                     var topnavitemlink, topnavitempanel;
                     topnavitem = $(topnavitem);
                     topnavitem.addClass(settings.topNavItemClass);
-                    topnavitemlink = topnavitem.find(":tabbable:first");
-                    topnavitempanel = topnavitem.children(":not(:tabbable):last");
+                    topnavitemlink = topnavitem.find("a");
+                    topnavitempanel = topnavitem.find('.' + settings.panelClass);
                     _addUniqueId.call(that, topnavitemlink);
                     if (topnavitempanel.length) {
                         _addUniqueId.call(that, topnavitempanel);
