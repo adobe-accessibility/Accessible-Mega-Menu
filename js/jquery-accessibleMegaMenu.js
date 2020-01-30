@@ -309,6 +309,7 @@ limitations under the License.
                 panel = target.closest('.' + this.settings.panelClass);
             // With panel.
             if (topli.length === 1 && panel.length === 0 && topli.find('.' + this.settings.panelClass).length === 1) {
+                // Handle click event.
                 if (!target.hasClass(this.settings.openClass)) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -330,9 +331,8 @@ limitations under the License.
                     }
                 }
             }
-            // Without panel.
-            else if (topli.length === 1) {
-                // Ignore error "Cannot read property 'getCurrent' of undefined" in Chrome DevTools.
+            // Without panel on enter event.
+            else if (topli.length === 1 && panel.length === 0 && event.type == "keydown") {
                 window.location.href = target.attr("href");
             }
         };
