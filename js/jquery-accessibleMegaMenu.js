@@ -860,25 +860,27 @@ limitations under the License.
                     var topnavitemlink, topnavitempanel;
                     topnavitem = $(topnavitem);
                     topnavitem.addClass(settings.topNavItemClass);
-                    topnavitemlink = topnavitem.closest("a");
-                    topnavitempanel = topnavitem.closest('.' + settings.panelClass);
+                    topnavitemlink = topnavitem.find("a").first();
+                    topnavitempanel = topnavitem.find('.' + settings.panelClass);
                     _addUniqueId.call(that, topnavitemlink);
+                    // When sub nav exists.
                     if (topnavitempanel.length) {
                         _addUniqueId.call(that, topnavitempanel);
+                        // Add attributes to top level link.
                         topnavitemlink.attr({
                             "role": "button",
                             "aria-controls": topnavitempanel.attr("id"),
                             "aria-expanded": false,
                             "tabindex": 0
                         });
-
+                        // Add attributes to top level panel.
                         topnavitempanel.attr({
                             "role": "region",
                             "aria-hidden": true
                         })
-                            .addClass(settings.panelClass)
-                            .not("[aria-labelledby]")
-                            .attr("aria-labelledby", topnavitemlink.attr("id"));
+                        .addClass(settings.panelClass)
+                        .not("[aria-labelledby]")
+                        .attr("aria-labelledby", topnavitemlink.attr("id"));
                     }
                 });
 
