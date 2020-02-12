@@ -860,8 +860,8 @@ limitations under the License.
                     var topnavitemlink, topnavitempanel;
                     topnavitem = $(topnavitem);
                     topnavitem.addClass(settings.topNavItemClass);
-                    topnavitemlink = topnavitem.find("a");
-                    topnavitempanel = topnavitem.find('.' + settings.panelClass);
+                    topnavitemlink = topnavitem.closest("a");
+                    topnavitempanel = topnavitem.closest('.' + settings.panelClass);
                     _addUniqueId.call(that, topnavitemlink);
                     if (topnavitempanel.length) {
                         _addUniqueId.call(that, topnavitempanel);
