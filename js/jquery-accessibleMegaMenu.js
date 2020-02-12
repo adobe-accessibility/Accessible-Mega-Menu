@@ -873,7 +873,7 @@ limitations under the License.
                             "aria-expanded": false,
                             "tabindex": 0
                         });
-                        // Add attributes to top level panel.
+                        // Add attributes to sub nav.
                         topnavitempanel.attr({
                             "role": "region",
                             "aria-hidden": true
