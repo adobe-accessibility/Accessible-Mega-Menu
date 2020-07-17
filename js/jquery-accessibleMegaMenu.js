@@ -284,7 +284,7 @@ limitations under the License.
                     openli.find('[aria-expanded]')
                         .attr('aria-expanded', 'false')
                         .removeClass(settings.openClass)
-                        .closest('.' + settings.panelClass)
+                        .siblings('.' + settings.panelClass)
                         .removeClass(settings.openClass)
                         .attr('aria-hidden', 'true');
                 }
@@ -292,7 +292,7 @@ limitations under the License.
                 topli.find('[aria-expanded]')
                     .attr('aria-expanded', 'true')
                     .addClass(settings.openClass)
-                    .closest('.' + settings.panelClass)
+                    .siblings('.' + settings.panelClass)
                     .addClass(settings.openClass)
                     .attr('aria-hidden', 'false');
 
