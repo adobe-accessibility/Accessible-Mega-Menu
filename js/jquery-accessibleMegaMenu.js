@@ -775,7 +775,7 @@ limitations under the License.
          */
         _clickToggleHandler = function () {
             var isExpanded = this.toggleButton.attr('aria-expanded') === 'true';
-            this.toggleButton.attr({'aria-expanded': !isExpanded, 'aria-pressed': !isExpanded});
+            this.toggleButton.attr({'aria-expanded': !isExpanded});
         };
 
         _toggleExpandedEventHandlers = function (hide) {
@@ -889,7 +889,7 @@ limitations under the License.
                 menu.find("hr").attr("role", "separator");
 
                 toggleButton.addClass(settings.toggleButtonClass);
-                toggleButton.attr({'aria-expanded': false, 'aria-pressed': false, 'aria-controls': menu.attr('id')});
+                toggleButton.attr({'aria-expanded': false, 'aria-controls': menu.attr('id')});
 
                 _addEventHandlers.call(this);
             },
