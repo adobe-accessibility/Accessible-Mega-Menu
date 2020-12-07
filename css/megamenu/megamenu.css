@@ -176,7 +176,7 @@ limitations under the License.
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-4 {
-    width: 878px;
+    width: 876px;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-4 > ol > li {
@@ -184,25 +184,25 @@ limitations under the License.
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-4b {
-    width: 878px;
-    left: -6.462em;
+    width: 876px;
+    left: -7.3625em;
     border-top-left-radius: 3px;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-4b > ol > li {
-    width: 22%;
+    width: 17%;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-3 {
-    width: 724px;
+    width: 689px;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-3 > ol > li {
-    width: 30%;
+    width: 29%;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-1 {
-    width: 615px;
+    width: 557px;
 }
 
 .accessible-megamenu .accessible-megamenu-panel.cols-1 > ol > li {
