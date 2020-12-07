@@ -438,7 +438,7 @@ limitations under the License.
             target
                 .removeClass(this.settings.focusClass);
 
-            if (typeof window.cvox !== 'undefined' && window.cvox == true) {
+            if (typeof window.cvox === 'object' && typeof window.cvox.Api !== 'object') {
                 // If ChromeVox is running...
                 that.focusTimeoutID = setTimeout(function () {
                     window.cvox.Api.getCurrentNode(function (node) {
