@@ -252,7 +252,7 @@ limitations under the License.
                     // Close top level link.
                     topli.find('[aria-expanded]')
                         .attr('aria-expanded', 'false')
-                        .removeClass(settings.openClass)
+                        .removeClass(settings.openClass);
                     // Close panel.
                     topli.find('.' + settings.panelClass)
                         .removeClass(settings.openClass)
@@ -351,7 +351,7 @@ limitations under the License.
                 }
             }
             // Without panel on enter event.
-            else if (topli.length === 1 && panel.length === 0 && event.type == "keydown") {
+            else if (topli.length === 1 && panel.length === 0 && event.type == "keydown" && target.hasAttribute("href")) {
                 window.location.href = target.attr("href");
             }
         };
@@ -860,8 +860,8 @@ limitations under the License.
                     var topnavitemlink, topnavitempanel;
                     topnavitem = $(topnavitem);
                     topnavitem.addClass(settings.topNavItemClass);
-                    topnavitemlink = topnavitem.find("a").first();
-                    topnavitempanel = topnavitem.find('.' + settings.panelClass);
+                    topnavitemlink = topnavitem.find(":tabbable:first");
+                    topnavitempanel = topnavitem.children(":not(:tabbable):last");
                     _addUniqueId.call(that, topnavitemlink);
                     // When sub nav exists.
                     if (topnavitempanel.length) {
