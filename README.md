@@ -1,4 +1,4 @@
-# Accessible Mega Menu
+# Accessible Mega Menu (Not actively maintained)
 =========================
 
 A demonstration of how to implement a keyboard and screen reader accessible mega menu as a jQuery plugin. It is modeled after the mega menu on [adobe.com](http://adobe.com/) but has been simplified for use by others. An brief explanation of our interaction design choices can be found in a blog post at [Mega menu accessibility on adobe.com](http://blogs.adobe.com/accessibility/2013/05/adobe-com.html).
