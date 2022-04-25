@@ -532,13 +532,14 @@ limitations under the License.
                     _togglePanel.call(that, event, true);
                     next = topnavitems.filter(':lt(' + topnavitems.index(topli) + '):last');
                     if (next.children('.' + settings.panelClass).length) {
-                        found = (next.find('[aria-expanded]')
+                        next.find('[aria-expanded]')
                             .attr('aria-expanded', 'true')
-                            .addClass(settings.openClass)
-                            .filter('.' + settings.panelClass)
-                            .attr('aria-hidden', 'false')
-                            .find(':tabbable:last')
-                            .focus() === 1);
+                            .addClass(settings.openClass);
+                        found = (next.children('.' + settings.panelClass)
+                                .addClass(settings.openClass)
+                                .attr('aria-hidden', 'false')
+                                .find(':tabbable:last')
+                                .focus() === 1);
                     }
                 } else if (!isTopNavItem) {
                     found = (tabbables.filter(':lt(' + tabbables.index(target) + '):last').focus().length === 1);
