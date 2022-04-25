@@ -270,7 +270,8 @@ limitations under the License.
                     menu.find('[aria-expanded=true]')
                         .attr('aria-expanded', 'false')
                         .removeClass(settings.openClass)
-                        .closest('.' + settings.panelClass)
+                        .closest('.' + settings.topNavItemClass)
+                        .find('.' + settings.panelClass)
                         .removeClass(settings.openClass)
                         .attr('aria-hidden', 'true');
                 }
@@ -279,20 +280,20 @@ limitations under the License.
             else {
                 clearTimeout(that.focusTimeoutID);
                 // Close previously open top level link and its panel.
-                var openli = menu.find('[aria-expanded=true]').parent();
+                var openli = menu.find('[aria-expanded=true]').closest('.' + settings.topNavItemClass);
                 if (!openli.is(topli)) {
                     openli.find('[aria-expanded]')
                         .attr('aria-expanded', 'false')
-                        .removeClass(settings.openClass)
-                        .siblings('.' + settings.panelClass)
+                        .removeClass(settings.openClass);
+                    openli.find('.' + settings.panelClass)
                         .removeClass(settings.openClass)
                         .attr('aria-hidden', 'true');
                 }
                 // Open current top level link and its panel.
                 topli.find('[aria-expanded]')
                     .attr('aria-expanded', 'true')
-                    .addClass(settings.openClass)
-                    .siblings('.' + settings.panelClass)
+                    .addClass(settings.openClass);
+                topli.find('.' + settings.panelClass)
                     .addClass(settings.openClass)
                     .attr('aria-hidden', 'false');
 
